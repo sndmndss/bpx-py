@@ -1,19 +1,45 @@
 [tool.poetry]
 name = "bpx-py"
-version = "0.1.0"
-description = ""
+version = "0.1.1"
+description = "Backpack API SDK tool"
 authors = ["sndmndss <yanfedorov120505@gmail.com>"]
 readme = "README.md"
+license = "Apache-2.0"
+homepage="https://backpack.exchange"
+repository="https://github.com/sndmndss/bpx-py/"
+keywords = ["api", "sdk", "backpack", "client", "wrapper"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+]
+packages = [
+    { include = "bpx" },
+]
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "^3.8"
 requests = "^2.31.0"
 aiohttp = "^3.9.5"
 cryptography = "^42.0.5"
+
+
+
+[tool.poetry.group.dev.dependencies]
 pytest = "^8.2.0"
 pytest-mock = "^3.14.0"
-
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/sndmndss/bpx-py/issues"
+"Get help in discord" = "https://discord.gg/backpack"

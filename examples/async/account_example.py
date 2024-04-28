@@ -1,10 +1,11 @@
 from bpx.__async.account import Account
 import asyncio
 
-public_key = "LPOTDx96bbrA7w7TAPXLcjxnZxW0e5Sj36o+9wzKejo="
-secret_key = "806NqIBZi2EHk/pg8IJa5W6vhIcHG03p8C8zo/DJmLA="
+public_key = "<KEY>"
+secret_key = "<KEY>>"
 
 account = Account(public_key, secret_key)
+
 
 async def account_example():
     fill_history = await account.get_fill_history_query("SOL_USDC", limit=999)
