@@ -2,7 +2,7 @@ import asyncio
 from bpx.__async.public import Public
 
 
-async def run_public_methods():
+async def pubblic_example():
     public = Public(proxy="")
 
     assets = await public.get_assets()
@@ -45,4 +45,4 @@ async def run_public_methods():
     print("History Trades for SOL_USDC:", history_trades)
     await asyncio.sleep(1)
 
-asyncio.run(run_public_methods())
+asyncio.run(pubblic_example())

@@ -1,6 +1,8 @@
 import aiohttp
 from bpx.http_client.http_client import HttpClient
 import json
+import certifi
+import ssl
 
 
 class AsyncHttpClient(HttpClient):
@@ -9,8 +11,11 @@ class AsyncHttpClient(HttpClient):
         self.proxy = proxy
 
     async def get(self, url, headers=None, params=None):
+        ssl_context = ssl.create_default_context(cafile=certifi.where())
         async with aiohttp.ClientSession() as session:
-            async with session.get(url, proxy=self.proxy, params=params, headers=headers) as response:
+            async with session.get(url, proxy=self.proxy, params=params,
+                                   headers=headers, ssl=ssl_context) as response:
+
                 try:
                     return await response.json()
                 except json.JSONDecodeError:
@@ -19,8 +24,11 @@ class AsyncHttpClient(HttpClient):
                     return await response.text()
 
     async def post(self, url, headers=None, data=None):
+        ssl_context = ssl.create_default_context(cafile=certifi.where())
         async with aiohttp.ClientSession() as session:
-            async with session.post(url, proxy=self.proxy, headers=headers, data=json.dumps(data)) as response:
+            async with session.post(url, proxy=self.proxy, headers=headers,
+                                    data=json.dumps(data), ssl=ssl_context) as response:
+
                 try:
                     return await response.json()
                 except json.JSONDecodeError:
@@ -29,8 +37,11 @@ class AsyncHttpClient(HttpClient):
                     return await response.text()
 
     async def delete(self, url, headers=None, data=None):
+        ssl_context = ssl.create_default_context(cafile=certifi.where())
         async with aiohttp.ClientSession() as session:
-            async with session.delete(url, proxy=self.proxy, headers=headers, data=json.dumps(data)) as response:
+            async with session.delete(url, proxy=self.proxy, headers=headers,
+                                      data=json.dumps(data), ssl=ssl_context) as response:
+
                 try:
                     return await response.json()
                 except json.JSONDecodeError:
