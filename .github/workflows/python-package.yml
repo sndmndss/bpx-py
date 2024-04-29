@@ -38,5 +38,5 @@ jobs:
     - name: Test with pytest
       run: pytest
       env:
-        PUBLIC_KEY: ${ { secrets.PUBLIC_KEY } }
-        SECRET_KEY: ${ { secrets.SECRET_KEY } }
+        PUBLIC_KEY: ${{secrets.PUBLIC_KEY}}
+        SECRET_KEY: ${{secrets.SECRET_KEY}}
