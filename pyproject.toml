@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "bpx-py"
-version = "0.1.1"
+version = "0.2.0"
 description = "Backpack API SDK tool"
 authors = ["sndmndss <yanfedorov120505@gmail.com>"]
 readme = "README.md"
