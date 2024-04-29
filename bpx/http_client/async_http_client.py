@@ -10,7 +10,7 @@ class AsyncHttpClient(HttpClient):
     def __init__(self, proxy: str = ""):
         self.proxy = proxy
 
-    async def get(self, url, headers=None, params=None):
+    async def _get(self, url, headers=None, params=None):
         ssl_context = ssl.create_default_context(cafile=certifi.where())
         async with aiohttp.ClientSession() as session:
             async with session.get(url, proxy=self.proxy, params=params,
@@ -23,7 +23,7 @@ class AsyncHttpClient(HttpClient):
                 except aiohttp.client_exceptions.ContentTypeError:
                     return await response.text()
 
-    async def post(self, url, headers=None, data=None):
+    async def _post(self, url, headers=None, data=None):
         ssl_context = ssl.create_default_context(cafile=certifi.where())
         async with aiohttp.ClientSession() as session:
             async with session.post(url, proxy=self.proxy, headers=headers,
@@ -36,7 +36,7 @@ class AsyncHttpClient(HttpClient):
                 except aiohttp.client_exceptions.ContentTypeError:
                     return await response.text()
 
-    async def delete(self, url, headers=None, data=None):
+    async def _delete(self, url, headers=None, data=None):
         ssl_context = ssl.create_default_context(cafile=certifi.where())
         async with aiohttp.ClientSession() as session:
             async with session.delete(url, proxy=self.proxy, headers=headers,
