@@ -13,6 +13,5 @@ packaging==24.0
 pluggy==1.5.0
 pycparser==2.22
 requests==2.31.0
-setuptools==69.5.1
 urllib3==2.2.1
 yarl==1.9.4
