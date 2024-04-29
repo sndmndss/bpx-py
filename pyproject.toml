@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "bpx-py"
-version = "1.0.0"
+version = "1.0.1"
 description = "Backpack API SDK tool"
 authors = ["sndmndss <yanfedorov120505@gmail.com>"]
 readme = "README.md"
@@ -9,7 +9,7 @@ homepage="https://backpack.exchange"
 repository="https://github.com/sndmndss/bpx-py/"
 keywords = ["api", "sdk", "backpack", "client", "wrapper"]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Programming Language :: Python :: 3",
