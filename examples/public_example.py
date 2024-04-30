@@ -34,4 +34,5 @@ def public_example():
     history_trades = public.get_history_trades("SOL_USDC", 100, 0)
     print("History Trades for SOL_USDC:", history_trades)
 
+
 public_example()

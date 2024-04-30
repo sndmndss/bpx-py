@@ -22,7 +22,7 @@ class BasePublic:
 
     def get_klines_url(self, symbol, interval, start_time, end_time):
         if start_time < 0 or end_time < 0:
-            raise NegativeValueError
+            raise NegativeValueError("start_time and end_time")
         if not TimeInterval.has_value(interval):
             raise InvalidTimeIntervalError(interval)
         url = f'api/v1/klines?symbol={symbol}&interval={interval}'

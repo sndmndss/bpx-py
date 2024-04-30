@@ -1,10 +1,10 @@
 from bpx.account import Account
 
-
 public_key = "<KEY>"
 secret_key = "<KEY>"
 
-account = Account(public_key, secret_key)
+
+account = Account(public_key, secret_key, debug=True)
 
 
 def account_example():
