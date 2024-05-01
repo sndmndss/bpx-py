@@ -1,6 +1,5 @@
 from bpx.simulations import *
 from bpx.account import Account
-from bpx.public import Public
 
 
 public_key = "<KEY>"
