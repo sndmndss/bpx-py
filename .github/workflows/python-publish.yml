@@ -35,7 +35,8 @@ jobs:
       run: poetry build
     - name: Publish package
       env:
-        PYPI_USERNAME: ${{secrets.PYPI_USERNAME}}
-        PYPI_PASSWORD: ${{secrets.PYPI_PASSWORD}}
-      run: poetry publish -vvv --build --username $PYPI_USERNAME --password $PYPI_PASSWORD
+        PYPI_PASSWORD: ${{secrets.PYPI_TOKEN}}
+      run: |
+        poetry config pypi-token.pypi $PYPI_TOKEN
+        poetry publish
       
