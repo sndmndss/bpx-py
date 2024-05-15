@@ -51,12 +51,16 @@ class BaseAccount:
         url = self.BPX_API_URL + 'wapi/v1/capital/deposit/address'
         return url, headers, params
 
-    def get_withdrawals(self, limit: int, offset: int, window: int):
+    def get_withdrawals(self, limit: int, offset: int, __from: int, to: int, window: int):
         if limit > 1000 or limit < 0:
             raise LimitValueError
         if offset < 0:
             raise NegativeValueError(offset)
         params = {'limit': limit, 'offset': offset}
+        if __from:
+            params['from'] = __from
+        if to:
+            params['to'] = to
         headers = self._headers(params, 'withdrawalQueryAll', window=window)
         url = self.BPX_API_URL + 'wapi/v1/capital/withdrawals'
         return url, headers, params
