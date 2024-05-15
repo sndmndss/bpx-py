@@ -32,7 +32,7 @@ async def test_execute_order(account_client: Account):
 
 @pytest.mark.asyncio
 async def test_deposits(account_client: Account):
-    deposits = await account_client.deposits(limit=3)
+    deposits = await account_client.get_deposits(limit=3)
     assert isinstance(deposits, list)
     assert len(deposits) == 3
 

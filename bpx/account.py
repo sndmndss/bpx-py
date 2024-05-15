@@ -25,8 +25,10 @@ class Account(BaseAccount):
         url, headers = super().get_balances(window)
         return self.http_client.get(url, headers=headers)
 
-    def deposits(self, limit: int = 100, offset: int = 0, window: int = None):
-        url, headers, params = super().deposits(limit, offset, window)
+    def get_deposits(self, limit: int = 100, offset: int = 0,
+                     __from: int = None, to: int = None,  window: int = None):
+
+        url, headers, params = super().get_deposits(limit, offset, window, __from, to)
         return self.http_client.get(url, headers=headers, params=params)
 
     def get_deposit_address(self, blockchain: str, window: int = None):
