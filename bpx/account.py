@@ -35,8 +35,10 @@ class Account(BaseAccount):
         url, headers, params = super().get_deposit_address(blockchain, window)
         return self.http_client.get(url, headers=headers, params=params)
 
-    def get_withdrawals(self, limit: int = 100, offset: int = 0, window: int = None):
-        url, headers, params = super().get_withdrawals(limit, offset, window)
+    def get_withdrawals(self, limit: int = 100, offset: int = 0,
+                        __from: int = None, to: int = None, window: int = None):
+
+        url, headers, params = super().get_withdrawals(limit, offset, __from, to, window)
         return self.http_client.get(url, headers=headers, params=params)
 
     def withdrawal(self, address: str,
