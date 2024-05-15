@@ -22,7 +22,7 @@ class Public(BasePublic):
     async def get_depth(self, symbol: str):
         return await self.http_client.get(self.get_depth_url(symbol))
 
-    async def get_klines(self, symbol: str, interval: str, start_time=0, end_time=0):
+    async def get_klines(self, symbol: str, interval: str, start_time: int, end_time=0):
         return await self.http_client.get(self.get_klines_url(symbol, interval, start_time, end_time))
 
     async def get_status(self):
