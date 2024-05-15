@@ -22,7 +22,7 @@ class Public(BasePublic):
     def get_depth(self, symbol: str):
         return self.http_client.get(self.get_depth_url(symbol))
 
-    def get_klines(self, symbol: str, interval: str, start_time=0, end_time=0):
+    def get_klines(self, symbol: str, interval: str, start_time: int, end_time: int = 0):
         return self.http_client.get(self.get_klines_url(symbol, interval, start_time, end_time))
 
     def get_status(self):

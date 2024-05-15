@@ -11,7 +11,7 @@ async def account_example():
     fill_history = await account.get_fill_history_query("SOL_USDC", limit=999)
     withdrawals = await account.get_withdrawals()
     executed_order = await account.execute_order("SOL_USDC", "Bid", "Limit", 0.01, time_in_force="IOC", price=1, window=10000)
-    deposits = await account.deposits(limit=1, offset=0, window=5000)
+    deposits = await account.get_deposits(limit=1, offset=0, window=5000)
     balances = await account.get_balances()
     deposit_address = await account.get_deposit_address("Solana")
     order_history = await account.get_order_history_query("SOL_USDC")

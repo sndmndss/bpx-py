@@ -26,7 +26,7 @@ class BaseAccount:
         url = self.BPX_API_URL + 'api/v1/capital'
         return url, headers
 
-    def deposits(self, limit: int, offset: int, window: int):
+    def get_deposits(self, limit: int, offset: int, window: int, __from=None, to=None):
         if limit > 1000 or limit < 0:
             raise LimitValueError
         if offset < 0:
@@ -35,6 +35,10 @@ class BaseAccount:
             'limit': limit,
             'offset': offset,
         }
+        if __from:
+            params['from'] = __from
+        if to:
+            params['to'] = to
         headers = self._headers(params, 'depositQueryAll', window=window)
         url = self.BPX_API_URL + 'wapi/v1/capital/deposits'
         return url, headers, params

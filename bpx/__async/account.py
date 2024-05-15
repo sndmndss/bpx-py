@@ -25,8 +25,8 @@ class Account(BaseAccount):
         url, headers = super().get_balances(window)
         return await self.http_client.get(url, headers=headers)
 
-    async def deposits(self, limit: int = 100, offset: int = 0, window: int = None):
-        url, headers, params = super().deposits(limit, offset, window)
+    async def get_deposits(self, limit: int = 100, offset: int = 0, window: int = None):
+        url, headers, params = super().get_deposits(limit, offset, window)
         return await self.http_client.get(url, headers=headers, params=params)
 
     async def get_deposit_address(self, blockchain: str, window: int = None):

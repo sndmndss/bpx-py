@@ -25,14 +25,14 @@ def test_get_balances(account):
     assert "X-API-Key" in headers
 
 
-def test_deposits(account):
+def test_get_deposits(account):
     with pytest.raises(LimitValueError):
-        account.deposits(limit=1001, offset=0, window=10000)
+        account.get_deposits(limit=1001, offset=0, window=10000)
 
     with pytest.raises(NegativeValueError):
-        account.deposits(limit=100, offset=-1, window=10000)
+        account.get_deposits(limit=100, offset=-1, window=10000)
 
-    url, headers, params = account.deposits(limit=100, offset=0, window=10000)
+    url, headers, params = account.get_deposits(limit=100, offset=0, window=10000)
     assert url == "https://api.backpack.exchange/wapi/v1/capital/deposits"
     assert params['limit'] == 100
     assert params['offset'] == 0

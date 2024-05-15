@@ -33,7 +33,7 @@ def test_execute_order(account_client: Account):
 
 
 def test_deposits(account_client: Account):
-    deposits = account_client.deposits(limit=3)
+    deposits = account_client.get_deposits(limit=3)
     assert isinstance(deposits, list)
     assert len(deposits) == 3
 
