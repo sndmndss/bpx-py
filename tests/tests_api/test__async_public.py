@@ -27,7 +27,9 @@ async def test_get_depth_returns_dict(public_client: Public):
 
 @pytest.mark.asyncio
 async def test_get_klines_returns_list(public_client: Public):
-    klines = await public_client.get_klines("BTC_USDC", "1d")
+    start_time = 1715692417
+    end_time = 1715778817
+    klines = await public_client.get_klines("BTC_USDC", "1d", start_time, end_time)
     assert isinstance(klines, list)
 
 @pytest.mark.asyncio
