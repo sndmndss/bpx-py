@@ -2,6 +2,8 @@
 
 # Backpack SDK
 
+Backpack SDK is a continuously updated and supported Python toolkit that provides comprehensive access to all Backpack endpoints, including custom artificial endpoints for enhanced functionality. This SDK ensures developers have the most current tools for seamless integration with Backpack services. 
+
 ## Installation
 
 bpx-py is stable on _python_ >= 3.8
@@ -92,3 +94,5 @@ asyncio.run(main())
 [PYPI](https://pypi.org/project/bpx-py/)
 
 [Backpack help center](https://support.backpack.exchange)
+
+
