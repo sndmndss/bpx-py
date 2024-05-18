@@ -2,7 +2,7 @@
 
 # Backpack SDK
 
-Backpack SDK is a continuously updated and supported Python toolkit that provides comprehensive access to all Backpack endpoints, including custom artificial endpoints for enhanced functionality. This SDK ensures developers have the most current tools for seamless integration with Backpack services. 
+This Backpack SDK is a continuously updated and supported Python toolkit that provides comprehensive access to all Backpack endpoints, including custom artificial endpoints for enhanced functionality. This SDK ensures developers have the most current tools for seamless integration with Backpack services. 
 
 ## Installation
 
