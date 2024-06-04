@@ -1,5 +1,5 @@
 import pytest
-from bpx.__async.account import Account
+from bpx.async_.account import Account
 import os
 
 public_key = os.getenv("PUBLIC_KEY")

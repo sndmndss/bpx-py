@@ -1,4 +1,4 @@
-from bpx.__async.account import Account
+from bpx.async_.account import Account
 import asyncio
 
 public_key = "<KEY>"

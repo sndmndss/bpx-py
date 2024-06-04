@@ -1,4 +1,5 @@
 from bpx.public import Public
+import json
 
 default_public: Public = Public()
 
@@ -44,3 +45,15 @@ def get_approximate_balance_in_usdc(balance: dict,
             else:
                 balance_usdc += float(balance[symbol][status]) * close_price
     return balance_usdc
+
+
+def save_data_json(data: dict, name: str = "data"):
+    file_format = ".json"
+    file_name = name+file_format if file_format not in name else name
+    with open(file_name, "w") as f:
+        json.dump(data, f, indent=6)
+
+
+
+save_data_json({"me":{"name": "data", "yeh": "mef"}}, "file.json")
+save_data_json({"he":{"name": "data", "yeh": "mef"}}, "file.json")

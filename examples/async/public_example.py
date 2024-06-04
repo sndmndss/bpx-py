@@ -1,5 +1,5 @@
 import asyncio
-from bpx.__async.public import Public
+from bpx.async_.public import Public
 
 
 async def pubblic_example():

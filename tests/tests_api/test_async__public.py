@@ -1,5 +1,5 @@
 import pytest
-from bpx.__async.public import Public
+from bpx.async_.public import Public
 
 @pytest.fixture
 def public_client():
