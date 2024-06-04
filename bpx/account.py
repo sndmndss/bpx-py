@@ -9,7 +9,7 @@ class Account(BaseAccount):
                  public_key: str,
                  secret_key: str,
                  window: int = 5000,
-                 proxy: dict = None,
+                 proxy: dict = {},
                  debug: bool = False,
                  default_http_client: SyncHttpClient = http_client
                  ):
@@ -26,9 +26,9 @@ class Account(BaseAccount):
         return self.http_client.get(url, headers=headers)
 
     def get_deposits(self, limit: int = 100, offset: int = 0,
-                     __from: int = None, to: int = None,  window: int = None):
+                     from_: int = None, to: int = None,  window: int = None):
 
-        url, headers, params = super().get_deposits(limit, offset, window, __from, to)
+        url, headers, params = super().get_deposits(limit, offset, window, from_, to)
         return self.http_client.get(url, headers=headers, params=params)
 
     def get_deposit_address(self, blockchain: str, window: int = None):
@@ -36,9 +36,9 @@ class Account(BaseAccount):
         return self.http_client.get(url, headers=headers, params=params)
 
     def get_withdrawals(self, limit: int = 100, offset: int = 0,
-                        __from: int = None, to: int = None, window: int = None):
+                        from_: int = None, to: int = None, window: int = None):
 
-        url, headers, params = super().get_withdrawals(limit, offset, __from, to, window)
+        url, headers, params = super().get_withdrawals(limit, offset, from_, to, window)
         return self.http_client.get(url, headers=headers, params=params)
 
     def withdrawal(self, address: str,
@@ -56,13 +56,13 @@ class Account(BaseAccount):
     def get_fill_history_query(self, symbol: str,
                                limit: int = 100,
                                offset: int = 0,
-                               __from: int = None,
+                               from_: int = None,
                                to: int = None,
                                window: int = None):
         url, headers, params = super().get_fill_history_query(symbol,
                                                          limit,
                                                          offset,
-                                                         __from,
+                                                         from_,
                                                          to,
                                                          window)
         return self.http_client.get(url, headers=headers, params=params)

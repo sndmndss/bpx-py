@@ -16,7 +16,8 @@ def public_example():
     depth = public.get_depth("SOL_USDC")
     print("Depth for SOL_USDC:", depth)
 
-    klines = public.get_klines("SOL_USDC", "1m")
+    klines_timestamp = 1715692417
+    klines = public.get_klines("SOL_USDC", "1m", klines_timestamp)
     print("K-lines for SOL_USDC:", klines)
 
     status = public.get_status()

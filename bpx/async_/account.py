@@ -34,9 +34,9 @@ class Account(BaseAccount):
         return await self.http_client.get(url, headers=headers, params=params)
 
     async def get_withdrawals(self, limit: int = 100, offset: int = 0,
-                              __from: int = None,to: int = None, window: int = None):
+                              from_: int = None,to: int = None, window: int = None):
 
-        url, headers, params = super().get_withdrawals(limit, offset, __from, to, window)
+        url, headers, params = super().get_withdrawals(limit, offset, from_, to, window)
         return await self.http_client.get(url, headers=headers, params=params)
 
     async def withdrawal(self, address: str,
@@ -54,13 +54,13 @@ class Account(BaseAccount):
     async def get_fill_history_query(self, symbol: str,
                                limit: int = 100,
                                offset: int = 0,
-                               __from: int = None,
+                               from_: int = None,
                                to: int = None,
                                window: int = None):
         url, headers, params = super().get_fill_history_query(symbol,
                                                          limit,
                                                          offset,
-                                                         __from,
+                                                         from_,
                                                          to,
                                                          window)
         return await self.http_client.get(url, headers=headers, params=params)

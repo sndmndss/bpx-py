@@ -26,7 +26,7 @@ class BaseAccount:
         url = self.BPX_API_URL + 'api/v1/capital'
         return url, headers
 
-    def get_deposits(self, limit: int, offset: int, window: int, __from=None, to=None):
+    def get_deposits(self, limit: int, offset: int, window: int, from_=None, to=None):
         if limit > 1000 or limit < 0:
             raise LimitValueError
         if offset < 0:
@@ -35,8 +35,8 @@ class BaseAccount:
             'limit': limit,
             'offset': offset,
         }
-        if __from:
-            params['from'] = __from
+        if from_:
+            params['from'] = from_
         if to:
             params['to'] = to
         headers = self._headers(params, 'depositQueryAll', window=window)
@@ -51,14 +51,14 @@ class BaseAccount:
         url = self.BPX_API_URL + 'wapi/v1/capital/deposit/address'
         return url, headers, params
 
-    def get_withdrawals(self, limit: int, offset: int, __from: int, to: int, window: int):
+    def get_withdrawals(self, limit: int, offset: int, from_: int, to: int, window: int):
         if limit > 1000 or limit < 0:
             raise LimitValueError
         if offset < 0:
             raise NegativeValueError(offset)
         params = {'limit': limit, 'offset': offset}
-        if __from:
-            params['from'] = __from
+        if from_:
+            params['from'] = from_
         if to:
             params['to'] = to
         headers = self._headers(params, 'withdrawalQueryAll', window=window)
@@ -97,7 +97,7 @@ class BaseAccount:
     def get_fill_history_query(self, symbol: str,
                                limit: int,
                                offset: int,
-                               __from: int,
+                               from_: int,
                                to: int,
                                window: int):
         if limit > 1000 or limit < 0:
@@ -109,11 +109,11 @@ class BaseAccount:
             'limit': limit,
             'offset': offset,
         }
-        if __from:
-            if __from < 0:
-                raise NegativeValueError(__from)
+        if from_:
+            if from_ < 0:
+                raise NegativeValueError(from_)
             else:
-                params['from'] = __from
+                params['from'] = from_
         if to:
             if to < 0:
                 raise NegativeValueError(to)
