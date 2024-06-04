@@ -37,7 +37,7 @@ print(account_fills)
 
 bpx-py supports **async** code:
 ```python
-from bpx.__async.account import Account
+from bpx.async_.account import Account
 import asyncio
 
 async def main():
@@ -71,7 +71,7 @@ print(markets)
 **Async** code:
 
 ```python
-from bpx.__async.public import Public
+from bpx.async_.public import Public
 import asyncio
 
 async def main():
