@@ -52,8 +52,3 @@ def save_data_json(data: dict, name: str = "data"):
     file_name = name+file_format if file_format not in name else name
     with open(file_name, "w") as f:
         json.dump(data, f, indent=6)
-
-
-
-save_data_json({"me":{"name": "data", "yeh": "mef"}}, "file.json")
-save_data_json({"he":{"name": "data", "yeh": "mef"}}, "file.json")
