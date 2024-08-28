@@ -39,6 +39,7 @@ class BasePublic:
         https://docs.backpack.exchange/#tag/Markets/operation/get_depth
         """
         return self._endpoint(f"api/v1/depth?symbol={symbol}")
+
     # currently not available
     # def get_collateral_summaries_for_all_assets(self):
     #     """

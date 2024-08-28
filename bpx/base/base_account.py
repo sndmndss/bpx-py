@@ -65,7 +65,9 @@ class BaseAccount:
         request_config = RequestConfiguration(url=url, headers=headers, params=params)
         return request_config
 
-    def get_deposit_address(self, blockchain: str, window: Optional[int] = None) -> RequestConfiguration:
+    def get_deposit_address(
+        self, blockchain: str, window: Optional[int] = None
+    ) -> RequestConfiguration:
         """
         Returns the url, headers and request parameters for getting a deposit address
 
@@ -284,7 +286,9 @@ class BaseAccount:
         request_config = RequestConfiguration(url=url, headers=headers, data=params)
         return request_config
 
-    def get_open_orders(self, symbol: str, window: Optional[int] = None) -> RequestConfiguration:
+    def get_open_orders(
+        self, symbol: str, window: Optional[int] = None
+    ) -> RequestConfiguration:
         """
         Returns the url, headers and request parameters for getting account open orders
 
@@ -296,7 +300,9 @@ class BaseAccount:
         request_config = RequestConfiguration(url=url, headers=headers, params=params)
         return request_config
 
-    def cancel_all_orders(self, symbol: str, window: Optional[int] = None) -> RequestConfiguration:
+    def cancel_all_orders(
+        self, symbol: str, window: Optional[int] = None
+    ) -> RequestConfiguration:
         """
         Returns the url, headers and request parameters for cancelling all open orders for a specific symbol
 
