@@ -1,5 +1,6 @@
 from cryptography.hazmat.primitives.asymmetric import ed25519
 import base64
+from typing import Optional
 from time import time
 from bpx.exceptions import *
 from bpx.enums import *
@@ -22,7 +23,7 @@ class BaseAccount:
         self.window = window
         self.debug = debug
 
-    def get_balances(self, window: int | None = None):
+    def get_balances(self, window: Optional[int] = None):
         """
         Returns the url, headers and request parameters for getting account balances
 
@@ -36,9 +37,9 @@ class BaseAccount:
         self,
         limit: int,
         offset: int,
-        from_: int | None = None,
-        to: int | None = None,
-        window: int | None = None,
+        from_: Optional[int] = None,
+        to: Optional[int] = None,
+        window: Optional[int] = None,
     ):
         """
         Returns the url, headers and request parameters for getting account deposits
@@ -61,7 +62,7 @@ class BaseAccount:
         url = self.BPX_API_URL + "wapi/v1/capital/deposits"
         return url, headers, params
 
-    def get_deposit_address(self, blockchain: str, window: int | None = None):
+    def get_deposit_address(self, blockchain: str, window: Optional[int] = None):
         """
         Returns the url, headers and request parameters for getting a deposit address
 
@@ -78,9 +79,9 @@ class BaseAccount:
         self,
         limit: int,
         offset: int,
-        from_: int | None = None,
-        to: int | None = None,
-        window: int | None = None,
+        from_: Optional[int] = None,
+        to: Optional[int] = None,
+        window: Optional[int] = None,
     ):
         """
         Returns the url, headers and request parameters for getting account withdrawals
@@ -106,7 +107,7 @@ class BaseAccount:
         symbol: str,
         blockchain: str,
         quantity: str,
-        window: int | None = None,
+        window: Optional[int] = None,
     ):
         """
         Returns the url, headers and request parameters for withdrawing funds
@@ -126,7 +127,7 @@ class BaseAccount:
         return url, headers, params
 
     def get_order_history_query(
-        self, symbol: str, limit: int, offset: int, window: int | None
+        self, symbol: str, limit: int, offset: int, window: Optional[int]
     ):
         """
         Returns the url, headers and request parameters for getting account order history
@@ -147,9 +148,9 @@ class BaseAccount:
         symbol: str,
         limit: int,
         offset: int,
-        from_: int | None = None,
-        to: int | None = None,
-        window: int | None = None,
+        from_: Optional[int] = None,
+        to: Optional[int] = None,
+        window: Optional[int] = None,
     ):
         """
         Returns the url, headers and request parameters for getting account fill history
@@ -183,9 +184,9 @@ class BaseAccount:
     def get_open_order(
         self,
         symbol: str,
-        order_id: str | None = None,
-        client_id: int | None = None,
-        window: int | None = None,
+        order_id: Optional[str] = None,
+        client_id: Optional[int] = None,
+        window: Optional[int] = None,
     ):
         """
         Returns the url, headers and request parameters for getting account open orders
@@ -207,15 +208,15 @@ class BaseAccount:
         symbol: str,
         side: str,
         order_type: str,
-        time_in_force: str | None = None,
-        quantity: float | None = None,
+        time_in_force: Optional[str] = None,
+        quantity: Optional[float] = None,
         price: float = 0,
         trigger_price: float = 0,
         self_trade_prevention: str = "RejectBoth",
-        quote_quantity: float | None = None,
-        client_id: int | None = None,
+        quote_quantity: Optional[float] = None,
+        client_id: Optional[int] = None,
         post_only: bool | None = None,
-        window: int | None = None,
+        window: Optional[int] = None,
     ):
         """
         Returns the url, headers and request parameters for placing a new order
@@ -254,9 +255,9 @@ class BaseAccount:
     def cancel_order(
         self,
         symbol: str,
-        order_id: str | None = None,
-        client_id: int | None = None,
-        window: int | None = None,
+        order_id: Optional[str] = None,
+        client_id: Optional[int] = None,
+        window: Optional[int] = None,
     ):
         """
         Returns the url, headers and request parameters for cancelling an existing order
@@ -272,7 +273,7 @@ class BaseAccount:
         url = self.BPX_API_URL + "api/v1/order"
         return url, headers, params
 
-    def get_open_orders(self, symbol: str, window: int | None = None):
+    def get_open_orders(self, symbol: str, window: Optional[int] = None):
         """
         Returns the url, headers and request parameters for getting account open orders
 
@@ -283,7 +284,7 @@ class BaseAccount:
         url = self.BPX_API_URL + "api/v1/orders"
         return url, headers, params
 
-    def cancel_all_orders(self, symbol: str, window: int | None = None):
+    def cancel_all_orders(self, symbol: str, window: Optional[int] = None):
         """
         Returns the url, headers and request parameters for cancelling all open orders for a specific symbol
 
@@ -294,7 +295,7 @@ class BaseAccount:
         url = self.BPX_API_URL + "api/v1/orders"
         return url, headers, params
 
-    def _headers(self, params: dict, instruction: str, window: int | None) -> dict:
+    def _headers(self, params: dict, instruction: str, window: Optional[int]) -> dict:
         window = self.window if window is None else window
         timestamp = int(time() * 1e3)
         encoded_signature = self._sign(params, instruction, timestamp, window)
