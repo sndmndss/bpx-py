@@ -1,5 +1,6 @@
 from bpx.base.base_public import BasePublic
 from bpx.http_client.sync_http_client import SyncHttpClient
+from typing import Optional
 
 default_http_client = SyncHttpClient()
 
@@ -8,7 +9,7 @@ class Public(BasePublic):
 
     def __init__(
         self,
-        proxy: dict | None = None,
+        proxy: Optional[dict] = None,
         http_client: SyncHttpClient = default_http_client,
     ):
         self.http_client = http_client
