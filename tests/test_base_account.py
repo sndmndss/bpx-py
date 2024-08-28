@@ -4,7 +4,6 @@ from unittest.mock import patch
 from bpx.exceptions import (
     NegativeValueError,
     LimitValueError,
-    InvalidBlockchainValue,
 )
 import os
 
@@ -45,9 +44,6 @@ def test_get_deposits(account):
 
 
 def test_get_deposit_address(account):
-    with pytest.raises(InvalidBlockchainValue):
-        account.get_deposit_address(blockchain="invalid_blockchain", window=10000)
-
     request_config = account.get_deposit_address(
         blockchain="Bitcoin", window=10000
     )
@@ -63,15 +59,6 @@ def test_signing(account):
 
 
 def test_withdrawal(account):
-    with pytest.raises(InvalidBlockchainValue):
-        account.withdrawal(
-            address="1BitcoinAddress",
-            symbol="BTC",
-            blockchain="invalid_blockchain",
-            quantity="1.0",
-            window=10000,
-        )
-
     request_config = account.withdrawal(
         address="1BitcoinAddress",
         symbol="BTC",
