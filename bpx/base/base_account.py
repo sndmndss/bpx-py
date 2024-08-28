@@ -73,8 +73,6 @@ class BaseAccount:
 
         https://docs.backpack.exchange/#tag/Capital/operation/get_deposit_address
         """
-        if not Blockchain.has_value(blockchain):
-            raise InvalidBlockchainValue(blockchain)
         params = {"blockchain": blockchain}
         headers = self._headers(params, "depositAddressQuery", window=window)
         url = self.BPX_API_URL + "wapi/v1/capital/deposit/address"
@@ -121,8 +119,6 @@ class BaseAccount:
 
         https://docs.backpack.exchange/#tag/Capital/operation/request_withdrawal
         """
-        if not Blockchain.has_value(blockchain):
-            raise InvalidBlockchainValue(blockchain)
         params = {
             "address": address,
             "blockchain": blockchain,

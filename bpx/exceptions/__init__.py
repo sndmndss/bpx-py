@@ -17,16 +17,6 @@ class NegativeValueError(Exception):
         super().__init__(f"Value {value} can't be negative")
 
 
-class InvalidBlockchainValue(Exception):
-    """Exception when blockchain value is invalid"""
-
-    def __init__(self, value):
-        super().__init__(
-            f"Blockchain value {value} is not supported\n"
-            f"https://docs.backpack.exchange/#tag/Capital/operation/get_deposits"
-        )
-
-
 class InvalidTimeIntervalError(Exception):
     def __init__(self, invalid_value):
         self.invalid_value = invalid_value
