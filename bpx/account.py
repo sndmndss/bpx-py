@@ -10,7 +10,7 @@ class Account(BaseAccount):
         public_key: str,
         secret_key: str,
         window: int = 5000,
-        proxy: dict | None = None,
+        proxy: dict = {},
         debug: bool = False,
         default_http_client: SyncHttpClient = http_client,
     ):

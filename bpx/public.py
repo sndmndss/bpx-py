@@ -8,7 +8,7 @@ class Public(BasePublic):
 
     def __init__(
         self,
-        proxy: dict | None = None,
+        proxy: dict = {},
         http_client: SyncHttpClient = default_http_client,
     ):
         self.http_client = http_client
