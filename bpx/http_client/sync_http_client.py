@@ -1,5 +1,5 @@
 import requests
-from bpx.http_client.http_client import HttpClient
+from bpx.http_client.base.http_client import HttpClient
 import json
 
 

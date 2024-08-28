@@ -1,14 +1,14 @@
 from bpx.exceptions import *
-from bpx.enums import *
+from bpx.constants.enums import *
 
 
 class BasePublic:
     BASE_URL = "https://api.backpack.exchange/"
 
-    def _endpoint(self, path):
+    def _endpoint(self, path) -> str:
         return f"{self.BASE_URL}{path}"
 
-    def get_assets_url(self):
+    def get_assets_url(self) -> str:
         """
         Returns URL for getting assets
 
@@ -16,7 +16,7 @@ class BasePublic:
         """
         return self._endpoint("api/v1/assets")
 
-    def get_markets_url(self):
+    def get_markets_url(self) -> str:
         """
         Returns URL for getting markets
 
@@ -24,7 +24,7 @@ class BasePublic:
         """
         return self._endpoint("api/v1/markets")
 
-    def get_ticker_url(self, symbol):
+    def get_ticker_url(self, symbol) -> str:
         """
         Returns URL for getting ticker information for a specified market
 
@@ -32,7 +32,7 @@ class BasePublic:
         """
         return self._endpoint(f"api/v1/ticker?symbol={symbol}")
 
-    def get_depth_url(self, symbol):
+    def get_depth_url(self, symbol) -> str:
         """
         Returns URL for getting depth for a specified market
 
@@ -57,7 +57,7 @@ class BasePublic:
     #     url = f"api/v1/collateral?asset={asset}"
     #     return self._endpoint(url)
 
-    def get_klines_url(self, symbol, interval, start_time, end_time):
+    def get_klines_url(self, symbol, interval, start_time, end_time) -> str:
         """
         Returns URL for getting klines for a specified market
 
@@ -74,7 +74,7 @@ class BasePublic:
             url += f"&endTime={end_time}"
         return self._endpoint(url)
 
-    def get_status_url(self):
+    def get_status_url(self) -> str:
         """
         Returns URL for getting status information
 
@@ -82,7 +82,7 @@ class BasePublic:
         """
         return self._endpoint("api/v1/status")
 
-    def get_ping_url(self):
+    def get_ping_url(self) -> str:
         """
         Returns URL for getting pong if endpoint is reachable
 
@@ -90,7 +90,7 @@ class BasePublic:
         """
         return self._endpoint("api/v1/ping")
 
-    def get_time_url(self):
+    def get_time_url(self) -> str:
         """
         Returns URL for getting current server time
 
@@ -98,7 +98,7 @@ class BasePublic:
         """
         return self._endpoint("api/v1/time")
 
-    def get_recent_trades_url(self, symbol, limit=100):
+    def get_recent_trades_url(self, symbol, limit=100) -> str:
         """
         Returns URL for getting recent trades for a specified market
 
@@ -108,7 +108,7 @@ class BasePublic:
             raise LimitValueError
         return self._endpoint(f"api/v1/trades?symbol={symbol}&limit={limit}")
 
-    def get_history_trades_url(self, symbol, limit=100, offset=0):
+    def get_history_trades_url(self, symbol, limit=100, offset=0) -> str:
         """
         Returns URL for getting historical trades for a specified market
 

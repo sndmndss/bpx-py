@@ -1,9 +1,10 @@
 from cryptography.hazmat.primitives.asymmetric import ed25519
 import base64
 from typing import Optional
+from bpx.models.request_configuration import RequestConfiguration
 from time import time
 from bpx.exceptions import *
-from bpx.enums import *
+from bpx.constants.enums import *
 
 
 class BaseAccount:
@@ -23,15 +24,16 @@ class BaseAccount:
         self.window = window
         self.debug = debug
 
-    def get_balances(self, window: Optional[int] = None):
+    def get_balances(self, window: Optional[int] = None) -> RequestConfiguration:
         """
-        Returns the url, headers and request parameters for getting account balances
+        Returns the url, headers for getting account balances
 
         https://docs.backpack.exchange/#tag/Capital/operation/get_balances
         """
         headers = self._headers({}, "balanceQuery", window=window)
         url = self.BPX_API_URL + "api/v1/capital"
-        return url, headers
+        request_config = RequestConfiguration(url=url, headers=headers)
+        return request_config
 
     def get_deposits(
         self,
@@ -40,7 +42,7 @@ class BaseAccount:
         from_: Optional[int] = None,
         to: Optional[int] = None,
         window: Optional[int] = None,
-    ):
+    ) -> RequestConfiguration:
         """
         Returns the url, headers and request parameters for getting account deposits
 
@@ -60,9 +62,10 @@ class BaseAccount:
             params["to"] = to
         headers = self._headers(params, "depositQueryAll", window=window)
         url = self.BPX_API_URL + "wapi/v1/capital/deposits"
-        return url, headers, params
+        request_config = RequestConfiguration(url=url, headers=headers, params=params)
+        return request_config
 
-    def get_deposit_address(self, blockchain: str, window: Optional[int] = None):
+    def get_deposit_address(self, blockchain: str, window: Optional[int] = None) -> RequestConfiguration:
         """
         Returns the url, headers and request parameters for getting a deposit address
 
@@ -73,7 +76,8 @@ class BaseAccount:
         params = {"blockchain": blockchain}
         headers = self._headers(params, "depositAddressQuery", window=window)
         url = self.BPX_API_URL + "wapi/v1/capital/deposit/address"
-        return url, headers, params
+        request_config = RequestConfiguration(url=url, headers=headers, params=params)
+        return request_config
 
     def get_withdrawals(
         self,
@@ -82,7 +86,7 @@ class BaseAccount:
         from_: Optional[int] = None,
         to: Optional[int] = None,
         window: Optional[int] = None,
-    ):
+    ) -> RequestConfiguration:
         """
         Returns the url, headers and request parameters for getting account withdrawals
 
@@ -99,7 +103,8 @@ class BaseAccount:
             params["to"] = to
         headers = self._headers(params, "withdrawalQueryAll", window=window)
         url = self.BPX_API_URL + "wapi/v1/capital/withdrawals"
-        return url, headers, params
+        request_config = RequestConfiguration(url=url, headers=headers, params=params)
+        return request_config
 
     def withdrawal(
         self,
@@ -108,7 +113,7 @@ class BaseAccount:
         blockchain: str,
         quantity: str,
         window: Optional[int] = None,
-    ):
+    ) -> RequestConfiguration:
         """
         Returns the url, headers and request parameters for withdrawing funds
 
@@ -124,11 +129,12 @@ class BaseAccount:
         }
         headers = self._headers(params, "withdraw", window=window)
         url = self.BPX_API_URL + "wapi/v1/capital/withdrawals"
-        return url, headers, params
+        request_config = RequestConfiguration(url=url, headers=headers, data=params)
+        return request_config
 
     def get_order_history_query(
         self, symbol: str, limit: int, offset: int, window: Optional[int]
-    ):
+    ) -> RequestConfiguration:
         """
         Returns the url, headers and request parameters for getting account order history
 
@@ -141,7 +147,8 @@ class BaseAccount:
         params = {"symbol": symbol, "limit": limit, "offset": offset}
         headers = self._headers(params, "orderHistoryQueryAll", window=window)
         url = self.BPX_API_URL + "wapi/v1/history/orders"
-        return url, headers, params
+        request_config = RequestConfiguration(url=url, headers=headers, params=params)
+        return request_config
 
     def get_fill_history_query(
         self,
@@ -151,7 +158,7 @@ class BaseAccount:
         from_: Optional[int] = None,
         to: Optional[int] = None,
         window: Optional[int] = None,
-    ):
+    ) -> RequestConfiguration:
         """
         Returns the url, headers and request parameters for getting account fill history
 
@@ -179,7 +186,8 @@ class BaseAccount:
                 params["to"] = to
         headers = self._headers(params, "fillHistoryQueryAll", window=window)
         url = self.BPX_API_URL + "wapi/v1/history/fills"
-        return url, headers, params
+        request_config = RequestConfiguration(url=url, headers=headers, params=params)
+        return request_config
 
     def get_open_order(
         self,
@@ -187,7 +195,7 @@ class BaseAccount:
         order_id: Optional[str] = None,
         client_id: Optional[int] = None,
         window: Optional[int] = None,
-    ):
+    ) -> RequestConfiguration:
         """
         Returns the url, headers and request parameters for getting account open orders
 
@@ -201,7 +209,8 @@ class BaseAccount:
             params["clientId"] = str(client_id)
         headers = self._headers(params, "orderQuery", window=window)
         url = self.BPX_API_URL + "api/v1/order"
-        return url, headers, params
+        request_config = RequestConfiguration(url=url, headers=headers, params=params)
+        return request_config
 
     def execute_order(
         self,
@@ -217,7 +226,7 @@ class BaseAccount:
         client_id: Optional[int] = None,
         post_only: Optional[bool] = None,
         window: Optional[int] = None,
-    ):
+    ) -> RequestConfiguration:
         """
         Returns the url, headers and request parameters for placing a new order
 
@@ -250,7 +259,8 @@ class BaseAccount:
             params["clientId"] = client_id
         headers = self._headers(params, "orderExecute", window=window)
         url = self.BPX_API_URL + "api/v1/order"
-        return url, headers, params
+        request_config = RequestConfiguration(url=url, headers=headers, data=params)
+        return request_config
 
     def cancel_order(
         self,
@@ -258,7 +268,7 @@ class BaseAccount:
         order_id: Optional[str] = None,
         client_id: Optional[int] = None,
         window: Optional[int] = None,
-    ):
+    ) -> RequestConfiguration:
         """
         Returns the url, headers and request parameters for cancelling an existing order
 
@@ -271,9 +281,10 @@ class BaseAccount:
             params["clientId"] = str(client_id)
         headers = self._headers(params, "orderCancel", window=window)
         url = self.BPX_API_URL + "api/v1/order"
-        return url, headers, params
+        request_config = RequestConfiguration(url=url, headers=headers, data=params)
+        return request_config
 
-    def get_open_orders(self, symbol: str, window: Optional[int] = None):
+    def get_open_orders(self, symbol: str, window: Optional[int] = None) -> RequestConfiguration:
         """
         Returns the url, headers and request parameters for getting account open orders
 
@@ -282,9 +293,10 @@ class BaseAccount:
         params = {"symbol": symbol}
         headers = self._headers(params, "orderQueryAll", window=window)
         url = self.BPX_API_URL + "api/v1/orders"
-        return url, headers, params
+        request_config = RequestConfiguration(url=url, headers=headers, params=params)
+        return request_config
 
-    def cancel_all_orders(self, symbol: str, window: Optional[int] = None):
+    def cancel_all_orders(self, symbol: str, window: Optional[int] = None) -> RequestConfiguration:
         """
         Returns the url, headers and request parameters for cancelling all open orders for a specific symbol
 
@@ -293,9 +305,13 @@ class BaseAccount:
         params = {"symbol": symbol}
         headers = self._headers(params, "orderCancelAll", window=window)
         url = self.BPX_API_URL + "api/v1/orders"
-        return url, headers, params
+        request_config = RequestConfiguration(url=url, headers=headers, data=params)
+        return request_config
 
     def _headers(self, params: dict, instruction: str, window: Optional[int]) -> dict:
+        """
+        Returns headers for the given instruction and params
+        """
         window = self.window if window is None else window
         timestamp = int(time() * 1e3)
         encoded_signature = self._sign(params, instruction, timestamp, window)
@@ -311,6 +327,9 @@ class BaseAccount:
         return headers
 
     def _sign(self, params: dict, instruction: str, timestamp: int, window: int):
+        """
+        Returns encoded signature for given parameters, instruction, timestamp and window
+        """
         sign_str = f"instruction={instruction}"
         sorted_params = "&".join(
             f"{key}={value}" for key, value in sorted(params.items())
