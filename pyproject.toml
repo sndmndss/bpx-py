@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "bpx-py"
-version = "1.1.5"
+version = "1.2.0"
 description = "Backpack API SDK tool"
 authors = ["sndmndss <yanfedorov120505@gmail.com>"]
 readme = "README.md"
@@ -38,6 +38,7 @@ pep8 = "^1.7.1"
 pytest = "^8.2.0"
 pytest-mock = "^3.14.0"
 pytest-asyncio = "^0.23.6"
+black = "^24.8.0"
 
 [build-system]
 requires = ["poetry-core"]

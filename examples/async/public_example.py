@@ -45,4 +45,5 @@ async def pubblic_example():
     print("History Trades for SOL_USDC:", history_trades)
     await asyncio.sleep(1)
 
+
 asyncio.run(pubblic_example())
