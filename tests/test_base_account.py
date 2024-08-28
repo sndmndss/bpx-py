@@ -57,9 +57,9 @@ def test_get_deposit_address(account):
 
 def test_signing(account):
     with patch.object(account, "_sign", return_value="mock_signature") as mock_sign:
-        _, headers = account.get_balances(window=10000)
+        request_config = account.get_balances(window=10000)
         mock_sign.assert_called_once()
-        assert headers["X-Signature"] == "mock_signature"
+        assert request_config.headers["X-Signature"] == "mock_signature"
 
 
 def test_withdrawal(account):
@@ -80,5 +80,5 @@ def test_withdrawal(account):
         window=10000,
     )
     assert request_config.url == "https://api.backpack.exchange/wapi/v1/capital/withdrawals"
-    assert request_config.params["address"] == "1BitcoinAddress"
-    assert request_config.params["blockchain"] == "Bitcoin"
+    assert request_config.data["address"] == "1BitcoinAddress"
+    assert request_config.data["blockchain"] == "Bitcoin"
