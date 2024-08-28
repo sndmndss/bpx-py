@@ -10,7 +10,12 @@ account = Account(public_key, secret_key, debug=True)
 def account_example():
     print(account.get_fill_history_query("SOL_USDC", limit=999))
     print(account.get_withdrawals())
-    print(account.execute_order("SOL_USDC", "Bid", "Limit", 0.01, time_in_force="IOC", price=1, window=10000))
+    # be careful with executing orders
+    # print(
+    #     account.execute_order(
+    #         "SOL_USDC", "Bid", "Limit", 0.01, time_in_force="IOC", price=1, window=10000
+    #     )
+    # )
     print(account.get_deposits(limit=100, offset=0, window=5000))
     print(account.get_balances())
     print(account.get_deposit_address("Solana"))

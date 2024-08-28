@@ -23,12 +23,14 @@ def test_get_withdrawal(account_client: Account):
 
 
 def test_execute_order(account_client: Account):
-    order = account_client.execute_order(symbol="SOL_USDC",
-                                         order_type="Limit",
-                                         side="Bid",
-                                         quantity=0.01,
-                                         price=0.01,
-                                         time_in_force="IOC")
+    order = account_client.execute_order(
+        symbol="SOL_USDC",
+        order_type="Limit",
+        side="Bid",
+        quantity=0.01,
+        price=0.01,
+        time_in_force="IOC",
+    )
     assert isinstance(order, dict)
 
 

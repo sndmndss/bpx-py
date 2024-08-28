@@ -27,7 +27,9 @@ def test_get_depth_returns_dict(public_client: Public):
 def test_get_klines_returns_list(public_client: Public):
     start_time = 1715692417
     end_time = 1715778817
-    assert isinstance(public_client.get_klines("BTC_USDC", "1d", start_time, end_time), list)
+    assert isinstance(
+        public_client.get_klines("BTC_USDC", "1d", start_time, end_time), list
+    )
 
 
 def test_get_status_returns_dict(public_client: Public):

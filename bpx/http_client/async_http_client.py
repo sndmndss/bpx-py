@@ -13,8 +13,9 @@ class AsyncHttpClient(HttpClient):
     async def get(self, url, headers=None, params=None):
         ssl_context = ssl.create_default_context(cafile=certifi.where())
         async with aiohttp.ClientSession() as session:
-            async with session.get(url, proxy=self.proxy, params=params,
-                                   headers=headers, ssl=ssl_context) as response:
+            async with session.get(
+                url, proxy=self.proxy, params=params, headers=headers, ssl=ssl_context
+            ) as response:
 
                 try:
                     return await response.json()
@@ -26,8 +27,13 @@ class AsyncHttpClient(HttpClient):
     async def post(self, url, headers=None, data=None):
         ssl_context = ssl.create_default_context(cafile=certifi.where())
         async with aiohttp.ClientSession() as session:
-            async with session.post(url, proxy=self.proxy, headers=headers,
-                                    data=json.dumps(data), ssl=ssl_context) as response:
+            async with session.post(
+                url,
+                proxy=self.proxy,
+                headers=headers,
+                data=json.dumps(data),
+                ssl=ssl_context,
+            ) as response:
 
                 try:
                     return await response.json()
@@ -39,8 +45,13 @@ class AsyncHttpClient(HttpClient):
     async def delete(self, url, headers=None, data=None):
         ssl_context = ssl.create_default_context(cafile=certifi.where())
         async with aiohttp.ClientSession() as session:
-            async with session.delete(url, proxy=self.proxy, headers=headers,
-                                      data=json.dumps(data), ssl=ssl_context) as response:
+            async with session.delete(
+                url,
+                proxy=self.proxy,
+                headers=headers,
+                data=json.dumps(data),
+                ssl=ssl_context,
+            ) as response:
 
                 try:
                     return await response.json()
