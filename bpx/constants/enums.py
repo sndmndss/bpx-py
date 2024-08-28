@@ -2,17 +2,6 @@ from enum import Enum
 from typing import Optional
 
 
-class Blockchain(Enum):
-    ETHEREUM = "Ethereum"
-    SOLANA = "Solana"
-    Polygon = "Polygon"
-    BITCOIN = "Bitcoin"
-
-    @classmethod
-    def has_value(cls, value):
-        return value in cls._value2member_map_
-
-
 class TimeInterval(Enum):
     ONE_MINUTE = "1m"
     THREE_MINUTES = "3m"
@@ -34,6 +23,9 @@ class TimeInterval(Enum):
     def has_value(cls, value):
         return value in cls._value2member_map_
 
+    def __str__(self):
+        return self.value
+
 
 class TimeInForce(Enum):
     GTC = "GTC"
@@ -43,6 +35,9 @@ class TimeInForce(Enum):
     @classmethod
     def has_value(cls, value):
         return value in cls._value2member_map_
+
+    def __str__(self):
+        return self.value
 
 
 class SelfTradePrevention(Enum):
@@ -54,3 +49,6 @@ class SelfTradePrevention(Enum):
     @classmethod
     def has_value(cls, value):
         return value in cls._value2member_map_
+
+    def __str__(self):
+        return self.value

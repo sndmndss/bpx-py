@@ -82,3 +82,4 @@ def test_withdrawal(account):
     assert request_config.url == "https://api.backpack.exchange/wapi/v1/capital/withdrawals"
     assert request_config.data["address"] == "1BitcoinAddress"
     assert request_config.data["blockchain"] == "Bitcoin"
+

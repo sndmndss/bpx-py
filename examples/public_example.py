@@ -1,4 +1,5 @@
 from bpx.public import Public
+from datetime import datetime, timedelta
 
 
 def public_example():
@@ -16,8 +17,12 @@ def public_example():
     depth = public.get_depth("SOL_USDC")
     print("Depth for SOL_USDC:", depth)
 
-    klines_timestamp = 1715692417
-    klines = public.get_klines("SOL_USDC", "1m", klines_timestamp)
+    now = datetime.now()
+    time_1_minute_ago = now - timedelta(minutes=1)
+    timestamp_1_minute_ago = int(time_1_minute_ago.timestamp())
+    time_11_minutes_ago = now - timedelta(minutes=11)
+    timestamp_11_minutes_ago = int(time_11_minutes_ago.timestamp())
+    klines = public.get_klines("SOL_USDC", "1m", timestamp_11_minutes_ago, timestamp_1_minute_ago)
     print("K-lines for SOL_USDC:", klines)
 
     status = public.get_status()

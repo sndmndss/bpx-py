@@ -1,5 +1,6 @@
 import pytest
 from bpx.public import Public
+from datetime import datetime, timedelta
 
 
 @pytest.fixture
@@ -25,10 +26,13 @@ def test_get_depth_returns_dict(public_client: Public):
 
 
 def test_get_klines_returns_list(public_client: Public):
-    start_time = 1715692417
-    end_time = 1715778817
+    now = datetime.now()
+    time_1_minute_ago = now - timedelta(minutes=1)
+    timestamp_1_minute_ago = int(time_1_minute_ago.timestamp())
+    time_11_minutes_ago = now - timedelta(minutes=11)
+    timestamp_11_minutes_ago = int(time_11_minutes_ago.timestamp())
     assert isinstance(
-        public_client.get_klines("BTC_USDC", "1d", start_time, end_time), list
+        public_client.get_klines("BTC_USDC", "5m", timestamp_11_minutes_ago, timestamp_1_minute_ago), list
     )
 
 

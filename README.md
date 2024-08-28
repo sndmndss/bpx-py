@@ -85,6 +85,32 @@ async def main():
 asyncio.run(main())
 ```
 
+### Request Configuration
+
+You can get the request configuration using `bpx.base.base_account` and `bpx.base.base_public` without doing a request.
+
+```python
+from bpx.base.base_account import BaseAccount
+from bpx.base.base_public import BasePublic
+from bpx.models.request_configuration import RequestConfiguration # unnecessary
+
+base_public = BasePublic()
+base_account = BaseAccount("<PUBLIC_KEY>", "<SECRET_KEY>", window=5000, debug=True)
+
+# let's get url and headers for this account request
+request_config: RequestConfiguration = base_account.get_balances()
+url = request_config.url
+headers = request_config.headers
+# let's get url for this public request
+request_url: str = base_public.get_ticker_url(symbol="SOL_USDC")
+```
+
+### Can be useful 
+
+`bpx.models` - models that are in use by request.
+
+`bpx.constants` - constants that may help if you don't know which variables are existing.
+
 ## Useful sources
 
 [Discord channel to get help](https://discord.gg/backpack)
