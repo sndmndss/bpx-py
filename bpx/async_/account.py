@@ -148,7 +148,7 @@ class Account(BaseAccount):
         self_trade_prevention: str = "RejectBoth",
         quote_quantity: Optional[float] = None,
         client_id: Optional[int] = None,
-        post_only: bool | None = None,
+        post_only: Optional[bool] = None,
         window: Optional[int] = None,
     ):
         """
