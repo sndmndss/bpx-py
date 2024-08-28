@@ -8,7 +8,9 @@ default_http_client = AsyncHttpClient()
 class Public(BasePublic):
 
     def __init__(
-        self, proxy: Optional[str] = None, http_client: AsyncHttpClient = default_http_client
+        self,
+        proxy: Optional[str] = None,
+        http_client: AsyncHttpClient = default_http_client,
     ):
         self.http_client = http_client
         self.http_client.proxy = proxy
