@@ -1,4 +1,3 @@
-[![Downloads](https://static.pepy.tech/badge/bpx-py)](https://pepy.tech/project/bpx-py)
 
 # Backpack SDK
 
