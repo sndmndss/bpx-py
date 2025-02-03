@@ -11,7 +11,7 @@ from bpx.constants.enums import (
     BorrowLendMarketHistoryIntervalType,
     BorrowLendMarketHistoryIntervalEnum,
 )
-from typing import Optional, Union, Dict
+from typing import Optional, Union
 
 default_http_client = SyncHttpClient()
 
@@ -34,7 +34,7 @@ class Public(BasePublic):
         """
         return self.http_client.get(self.get_assets_url())
 
-    def get_collateral(self) -> Dict[str, IMFFunction, MMFFunction, HaircutFunction]:
+    def get_collateral(self) -> Union[str, IMFFunction, MMFFunction, HaircutFunction]:
         return self.http_client.get(self.get_collateral_url())
 
     def get_borrow_lend_markets(self):
@@ -85,7 +85,7 @@ class Public(BasePublic):
         """
         return self.http_client.get(self.get_ticker_url(symbol))
 
-    def get_tickers(self, symbol: str):
+    def get_tickers(self):
         """
         Returns ticker information for a specified market
 
@@ -138,7 +138,7 @@ class Public(BasePublic):
 
         https://docs.backpack.exchange/#tag/Markets/operation/get_funding_interval_rates
         """
-        return self.http_client.get(self.get_funding_interval_rates_url(symbol))
+        return self.http_client.get(self.get_funding_interval_rates_url(symbol, limit, offset))
 
     def get_status(self):
         """
