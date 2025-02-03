@@ -1,8 +1,10 @@
-[![Downloads](https://static.pepy.tech/badge/bpx-py)](https://pepy.tech/project/bpx-py)
 
 # Backpack SDK
 
-This Backpack SDK is a continuously updated and supported Python toolkit that provides comprehensive access to all Backpack endpoints, including custom artificial endpoints for enhanced functionality. This SDK ensures developers have the most current tools for seamless integration with Backpack services. 
+This Backpack SDK is a continuously updated and supported Python toolkit that provides comprehensive access to all Backpack endpoints.  
+
+Trade on spot/perp markets, manage your account, lend/borrow and retrieve various data using Backpack API.
+
 
 ## Installation
 
@@ -28,7 +30,7 @@ account = Account(public_key,
         window=6000, # default value is 5000
         proxy={"http":"132.142.132.12:3128"}) # you can use any requests proxy supported by requests
 deposit_address_sol = account.get_deposit_address("Solana")
-account_fills = account.get_fill_history_query("SOL_USDC", 
+account_fills = account.get_fill_history("SOL_USDC", 
                                                limit=10,
                                                window=10000) # window only for this order
 print(deposit_address_sol)
@@ -38,6 +40,7 @@ print(account_fills)
 bpx-py supports **async** code:
 ```python
 from bpx.async_.account import Account
+from bpx.constants.enums import MarketTypeEnum
 import asyncio
 
 async def main():
@@ -46,9 +49,10 @@ async def main():
     account = Account(public_key, secret_key, proxy="http://your_proxy-address:1234")
     deposit_address_sol = await account.get_deposit_address("Solana")
     await asyncio.sleep(1)
-    account_fills = await account.get_fill_history_query("SOL_USDC", 
+    account_fills = await account.get_fill_history("SOL_USDC", 
                                                limit=10,
-                                               window=10000)
+                                               window=10000,
+                                               market_type=MarketTypeEnum.SPOT)
     print(deposit_address_sol)
     print(account_fills)
 
@@ -72,13 +76,14 @@ print(markets)
 
 ```python
 from bpx.async_.public import Public
+from bpx.constants.enums import BorrowLendMarketHistoryIntervalEnum
 import asyncio
 
 async def main():
     public = Public()
     assets = await public.get_assets()
     await asyncio.sleep(1)
-    klines = await public.get_klines("SOL_USDC", "1d")
+    klines = await public.get_borrow_lend_market_history(BorrowLendMarketHistoryIntervalEnum.ONE_DAY)
     print(assets)
     print(klines)
     
@@ -92,7 +97,7 @@ You can get the request configuration using `bpx.base.base_account` and `bpx.bas
 ```python
 from bpx.base.base_account import BaseAccount
 from bpx.base.base_public import BasePublic
-from bpx.models.request_configuration import RequestConfiguration # unnecessary
+from bpx.models.objects import RequestConfiguration  # unnecessary
 
 base_public = BasePublic()
 base_account = BaseAccount("<PUBLIC_KEY>", "<SECRET_KEY>", window=5000, debug=True)
@@ -107,9 +112,9 @@ request_url: str = base_public.get_ticker_url(symbol="SOL_USDC")
 
 ### Can be useful 
 
-`bpx.models` - models that are in use by request.
+`bpx.models` - models that are in use by request and response (not full).
 
-`bpx.constants` - constants that may help if you don't know which variables are existing.
+`bpx.constants.enums` - Enums and literals for your use and IDE typing.
 
 ## Useful sources
 

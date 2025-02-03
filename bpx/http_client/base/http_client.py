@@ -16,3 +16,8 @@ class HttpClient(abc.ABC):
     def delete(self, url, headers=None):
         """Perform a DELETE request"""
         pass
+
+    @abc.abstractmethod
+    def patch(self, url, headers=None, data=None):
+        """Perform a PATCH request"""
+        pass

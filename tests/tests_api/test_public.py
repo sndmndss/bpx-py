@@ -32,7 +32,10 @@ def test_get_klines_returns_list(public_client: Public):
     time_11_minutes_ago = now - timedelta(minutes=11)
     timestamp_11_minutes_ago = int(time_11_minutes_ago.timestamp())
     assert isinstance(
-        public_client.get_klines("BTC_USDC", "5m", timestamp_11_minutes_ago, timestamp_1_minute_ago), list
+        public_client.get_klines(
+            "BTC_USDC", "5m", timestamp_11_minutes_ago, timestamp_1_minute_ago
+        ),
+        list,
     )
 
 

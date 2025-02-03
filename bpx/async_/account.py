@@ -1,6 +1,9 @@
 from bpx.base.base_account import BaseAccount
 from bpx.http_client.async_http_client import AsyncHttpClient
-from typing import Optional
+from typing import Optional, Union
+
+from bpx.constants.enums import *
+from bpx.models.objects import RequestConfiguration
 
 default_http_client = AsyncHttpClient()
 
@@ -19,15 +22,105 @@ class Account(BaseAccount):
         self.http_client = http_client
         self.http_client.proxy = proxy
 
+    async def get_account(self, window: Optional[int] = None) -> RequestConfiguration:
+        """
+        Returns the account information
+
+        https://docs.backpack.exchange/#tag/Account/operation/get_account
+        """
+        request_config = super().get_account(window=window)
+        return await self.http_client.get(
+            url=request_config.url, headers=request_config.headers
+        )
+
+    async def update_account(
+        self,
+        auto_borrow_settlements: Optional[bool] = None,
+        auto_lend: Optional[bool] = None,
+        auto_realize_pnl: Optional[bool] = None,
+        auto_repay_borrows: Optional[bool] = None,
+        leverage_limit: Optional[str] = None,
+        window: Optional[int] = None,
+    ) -> RequestConfiguration:
+        """
+        Updates the account information
+
+        https://docs.backpack.exchange/#tag/Account/operation/update_account_settings
+        """
+        request_config = super().update_account(
+            auto_borrow_settlements=auto_borrow_settlements,
+            auto_lend=auto_lend,
+            auto_realize_pnl=auto_realize_pnl,
+            auto_repay_borrows=auto_repay_borrows,
+            leverage_limit=leverage_limit,
+            window=window,
+        )
+        return await self.http_client.patch(
+            url=request_config.url,
+            headers=request_config.headers,
+            data=request_config.data,
+        )
+
+    async def get_borrow_lend_positions(
+        self, window: Optional[int] = None
+    ) -> RequestConfiguration:
+        """
+        Returns the borrow lend positions
+
+        https://docs.backpack.exchange/#tag/Borrow-Lend/operation/get_borrow_lend_positions
+        """
+        request_config = super().get_borrow_lend_positions(window=window)
+        return await self.http_client.get(
+            url=request_config.url, headers=request_config.headers
+        )
+
+    async def execute_borrow_lend(
+        self,
+        quantity: str,
+        side: Union[BorrowLendSideType, BorrowLendSideEnum],
+        symbol: str,
+        window: Optional[int] = None,
+    ) -> RequestConfiguration:
+        """
+        Posts borrow lend and returns borrow lend status
+
+        https://docs.backpack.exchange/#tag/Borrow-Lend/operation/execute_borrow_lend
+        """
+        request_config = super().execute_borrow_lend(
+            quantity=quantity, side=side, symbol=symbol, window=window
+        )
+        return await self.http_client.post(
+            url=request_config.url,
+            headers=request_config.headers,
+            data=request_config.data,
+        )
+
     async def get_balances(self, window: Optional[int] = None):
         """
         Returns the account balances
 
         https://docs.backpack.exchange/#tag/Capital/operation/get_balances
         """
-        request_config = super().get_balances(window)
+        request_config = super().get_balances(window=window)
         return await self.http_client.get(
             url=request_config.url, headers=request_config.headers
+        )
+
+    async def get_collateral(
+        self, subaccount_id: Optional[int] = None, window: Optional[int] = None
+    ) -> RequestConfiguration:
+        """
+        Returns the account collateral
+
+        https://docs.backpack.exchange/#tag/Capital/operation/get_collateral
+        """
+        request_config = super().get_collateral(
+            subaccount_id=subaccount_id, window=window
+        )
+        return await self.http_client.get(
+            url=request_config.url,
+            headers=request_config.headers,
+            params=request_config.params,
         )
 
     async def get_deposits(
@@ -43,7 +136,9 @@ class Account(BaseAccount):
 
         https://docs.backpack.exchange/#tag/Capital/operation/get_deposits
         """
-        request_config = super().get_deposits(limit, offset, window)
+        request_config = super().get_deposits(
+            limit=limit, offset=offset, from_=from_, to=to, window=window
+        )
         return await self.http_client.get(
             url=request_config.url,
             headers=request_config.headers,
@@ -56,7 +151,9 @@ class Account(BaseAccount):
 
         https://docs.backpack.exchange/#tag/Capital/operation/get_deposit_address
         """
-        request_config = super().get_deposit_address(blockchain, window)
+        request_config = super().get_deposit_address(
+            blockchain=blockchain, window=window
+        )
         return await self.http_client.get(
             url=request_config.url,
             headers=request_config.headers,
@@ -76,7 +173,9 @@ class Account(BaseAccount):
 
         https://docs.backpack.exchange/#tag/Capital/operation/get_withdrawals
         """
-        request_config = super().get_withdrawals(limit, offset, from_, to, window)
+        request_config = super().get_withdrawals(
+            limit=limit, offset=offset, from_=from_, to=to, window=window
+        )
         return await self.http_client.get(
             url=request_config.url,
             headers=request_config.headers,
@@ -86,9 +185,13 @@ class Account(BaseAccount):
     async def withdrawal(
         self,
         address: str,
-        symbol: str,
         blockchain: str,
         quantity: str,
+        symbol: str,
+        two_factor_token: Optional[str] = None,
+        auto_borrow: Optional[bool] = None,
+        auto_lend_redeem: Optional[bool] = None,
+        client_id: Optional[int] = None,
         window: Optional[int] = None,
     ):
         """
@@ -97,7 +200,15 @@ class Account(BaseAccount):
         https://docs.backpack.exchange/#tag/Capital/operation/request_withdrawal
         """
         request_config = super().withdrawal(
-            address, symbol, blockchain, quantity, window
+            address=address,
+            blockchain=blockchain,
+            quantity=quantity,
+            symbol=symbol,
+            two_factor_token=two_factor_token,
+            auto_borrow=auto_borrow,
+            auto_lend_redeem=auto_lend_redeem,
+            client_id=client_id,
+            window=window,
         )
         return await self.http_client.post(
             url=request_config.url,
@@ -105,11 +216,90 @@ class Account(BaseAccount):
             data=request_config.data,
         )
 
-    async def get_order_history_query(
+    async def get_open_positions(
+        self, window: Optional[int] = None
+    ) -> RequestConfiguration:
+        """
+        Returns the account open positions
+
+        https://docs.backpack.exchange/#tag/Futures/operation/get_positions
+        """
+        request_config = super().get_open_positions(window=window)
+        return await self.http_client.get(
+            url=request_config.url, headers=request_config.headers
+        )
+
+    async def get_borrow_history(
         self,
-        symbol: str,
+        borrow_lend_event_type: Optional[
+            Union[BorrowLendEventEnum, BorrowLendEventType]
+        ] = None,
+        sources: Optional[str] = None,
+        position_id: Optional[str] = None,
+        symbol: Optional[str] = None,
         limit: int = 100,
         offset: int = 0,
+        window: Optional[int] = None,
+    ) -> RequestConfiguration:
+        """
+        Returns the account borrow history
+
+        https://docs.backpack.exchange/#tag/History/operation/get_borrow_lend_history
+        """
+        request_config = super().get_borrow_history(
+            borrow_lend_event_type=borrow_lend_event_type,
+            sources=sources,
+            position_id=position_id,
+            symbol=symbol,
+            limit=limit,
+            offset=offset,
+            window=window,
+        )
+        return await self.http_client.get(
+            url=request_config.url,
+            headers=request_config.headers,
+            params=request_config.params,
+        )
+
+    async def get_interest_history(
+        self,
+        asset: Optional[str] = None,
+        symbol: Optional[str] = None,
+        position_id: Optional[str] = None,
+        limit: int = 100,
+        offset: int = 0,
+        source: Optional[
+            Union[InterestPaymentSourceType, InterestPaymentSourceEnum]
+        ] = None,
+        window: Optional[int] = None,
+    ) -> RequestConfiguration:
+        """
+        Returns the account interest history
+
+        https://docs.backpack.exchange/#tag/History/operation/get_interest_history
+        """
+        request_config = super().get_interest_history(
+            asset=asset,
+            symbol=symbol,
+            position_id=position_id,
+            limit=limit,
+            offset=offset,
+            source=source,
+            window=window,
+        )
+        return await self.http_client.get(
+            url=request_config.url,
+            headers=request_config.headers,
+            params=request_config.params,
+        )
+
+    async def get_order_history(
+        self,
+        symbol: Optional[str] = None,
+        order_id: Optional[str] = None,
+        limit: int = 100,
+        offset: int = 0,
+        market_type: Optional[Union[MarketTypeEnum, MarketTypeType]] = None,
         window: Optional[int] = None,
     ):
         """
@@ -117,20 +307,29 @@ class Account(BaseAccount):
 
         https://docs.backpack.exchange/#tag/History/operation/get_order_history
         """
-        request_config = super().get_order_history_query(symbol, limit, offset, window)
+        request_config = super().get_order_history(
+            limit=limit,
+            offset=offset,
+            order_id=order_id,
+            symbol=symbol,
+            market_type=market_type,
+            window=window,
+        )
         return await self.http_client.get(
             url=request_config.url,
             headers=request_config.headers,
             params=request_config.params,
         )
 
-    async def get_fill_history_query(
+    async def get_fill_history(
         self,
-        symbol: str,
+        symbol: Optional[str] = None,
         limit: int = 100,
         offset: int = 0,
         from_: Optional[int] = None,
         to: Optional[int] = None,
+        fill_type: Optional[Union[FillTypeEnum, FillTypeType]] = None,
+        market_type: Optional[Union[MarketTypeEnum, MarketTypeType]] = None,
         window: Optional[int] = None,
     ):
         """
@@ -138,8 +337,90 @@ class Account(BaseAccount):
 
         https://docs.backpack.exchange/#tag/History/operation/get_fills
         """
-        request_config = super().get_fill_history_query(
-            symbol, limit, offset, from_, to, window
+        request_config = super().get_fill_history(
+            symbol=symbol,
+            limit=limit,
+            offset=offset,
+            from_=from_,
+            to=to,
+            fill_type=fill_type,
+            market_type=market_type,
+            window=window,
+        )
+        return await self.http_client.get(
+            url=request_config.url,
+            headers=request_config.headers,
+            params=request_config.params,
+        )
+
+    async def get_funding_payments(
+        self,
+        subaccount_id: Optional[int] = None,
+        symbol: Optional[str] = None,
+        limit: Optional[int] = 100,
+        offset: Optional[int] = 0,
+        window: Optional[int] = None,
+    ) -> RequestConfiguration:
+        """
+        Returns the account funding payments
+
+        https://docs.backpack.exchange/#tag/History/operation/get_funding_payments
+        """
+        request_config = super().get_funding_payments(
+            subaccount_id=subaccount_id,
+            symbol=symbol,
+            limit=limit,
+            offset=offset,
+            window=window,
+        )
+        return await self.http_client.get(
+            url=request_config.url,
+            headers=request_config.headers,
+            params=request_config.params,
+        )
+
+    async def get_profit_and_loss_history(
+        self,
+        subaccount_id: Optional[int] = None,
+        symbol: Optional[str] = None,
+        limit: int = 100,
+        offset: int = 0,
+        window: Optional[int] = None,
+    ) -> RequestConfiguration:
+        """
+        Returns the account profit and loss history
+
+        https://docs.backpack.exchange/#tag/History/operation/get_pnl_payments
+        """
+        request_config = super().get_profit_and_loss_history(
+            subaccount_id=subaccount_id,
+            symbol=symbol,
+            limit=limit,
+            offset=offset,
+            window=window,
+        )
+        return await self.http_client.get(
+            url=request_config.url,
+            headers=request_config.headers,
+            params=request_config.params,
+        )
+
+    async def get_settlements_history(
+        self,
+        limit: Optional[int] = 100,
+        offset: Optional[int] = 0,
+        source: Optional[
+            Union[SettlementSourceFilterEnum, SettlementSourceFilterType]
+        ] = None,
+        window: Optional[int] = None,
+    ) -> RequestConfiguration:
+        """
+        Returns the account settlements history
+
+        https://docs.backpack.exchange/#tag/History/operation/get_settlement_history
+        """
+        request_config = super().get_settlements_history(
+            limit=limit, offset=offset, source=source, window=window
         )
         return await self.http_client.get(
             url=request_config.url,
@@ -159,7 +440,9 @@ class Account(BaseAccount):
 
         https://docs.backpack.exchange/#tag/Order/operation/get_order
         """
-        request_config = super().get_open_order(symbol, order_id, client_id, window)
+        request_config = super().get_open_order(
+            symbol=symbol, order_id=order_id, client_id=client_id, window=window
+        )
         return await self.http_client.get(
             url=request_config.url,
             headers=request_config.headers,
@@ -171,34 +454,46 @@ class Account(BaseAccount):
         symbol: str,
         side: str,
         order_type: str,
+        time_in_force: Optional[Union[TimeInForceEnum, TimeInForceType]] = None,
         quantity: Optional[float] = None,
-        time_in_force: Optional[str] = None,
-        price: float = 0,
-        trigger_price: float = 0,
-        self_trade_prevention: str = "RejectBoth",
+        price: Optional[str] = None,
+        trigger_price: Optional[str] = None,
+        self_trade_prevention: Optional[
+            Union[SelfTradePreventionEnum, SelfTradePreventionType]
+        ] = "RejectBoth",
         quote_quantity: Optional[float] = None,
         client_id: Optional[int] = None,
         post_only: Optional[bool] = None,
+        reduce_only: Optional[bool] = None,
+        auto_borrow: Optional[bool] = None,
+        auto_borrow_repay: Optional[bool] = None,
+        auto_lend: Optional[bool] = None,
+        auto_lend_redeem: Optional[bool] = None,
         window: Optional[int] = None,
     ):
         """
-        Posts order and returns the status of the executed order
+        Posts an order and returns order status
 
         https://docs.backpack.exchange/#tag/Order/operation/execute_order
         """
         request_config = super().execute_order(
-            symbol,
-            side,
-            order_type,
-            time_in_force,
-            quantity,
-            price,
-            trigger_price,
-            self_trade_prevention,
-            quote_quantity,
-            client_id,
-            post_only,
-            window,
+            symbol=symbol,
+            side=side,
+            order_type=order_type,
+            time_in_force=time_in_force,
+            quantity=quantity,
+            price=price,
+            trigger_price=trigger_price,
+            self_trade_prevention=self_trade_prevention,
+            quote_quantity=quote_quantity,
+            client_id=client_id,
+            post_only=post_only,
+            reduce_only=reduce_only,
+            auto_borrow=auto_borrow,
+            auto_borrow_repay=auto_borrow_repay,
+            auto_lend=auto_lend,
+            auto_lend_redeem=auto_lend_redeem,
+            window=window,
         )
         return await self.http_client.post(
             url=request_config.url,
@@ -218,7 +513,9 @@ class Account(BaseAccount):
 
         https://docs.backpack.exchange/#tag/Order/operation/cancel_order
         """
-        request_config = super().cancel_order(symbol, order_id, client_id, window)
+        request_config = super().cancel_order(
+            symbol=symbol, order_id=order_id, client_id=client_id, window=window
+        )
         return await self.http_client.delete(
             url=request_config.url,
             headers=request_config.headers,
@@ -231,7 +528,7 @@ class Account(BaseAccount):
 
         https://docs.backpack.exchange/#tag/Order/operation/get_open_orders
         """
-        request_config = super().get_open_orders(symbol, window)
+        request_config = super().get_open_orders(symbol=symbol, window=window)
         return await self.http_client.get(
             url=request_config.url,
             headers=request_config.headers,
@@ -244,8 +541,34 @@ class Account(BaseAccount):
 
         https://docs.backpack.exchange/#tag/Order/operation/cancel_open_orders
         """
-        request_config = super().cancel_all_orders(symbol, window)
+        request_config = super().cancel_all_orders(symbol=symbol, window=window)
         return await self.http_client.delete(
+            url=request_config.url,
+            headers=request_config.headers,
+            data=request_config.data,
+        )
+
+    async def submit_quote(
+        self,
+        rfq_id: str,
+        bid_price: str,
+        ask_price: str,
+        client_id: Optional[int] = None,
+        window: Optional[int] = None,
+    ) -> RequestConfiguration:
+        """
+        Submits a quote for a specified RFQ
+
+        https://docs.backpack.exchange/#tag/Request-For-Quote/operation/submit_quote
+        """
+        request_config = super().submit_quote(
+            rfq_id=rfq_id,
+            bid_price=bid_price,
+            ask_price=ask_price,
+            client_id=client_id,
+            window=window,
+        )
+        return await self.http_client.post(
             url=request_config.url,
             headers=request_config.headers,
             data=request_config.data,

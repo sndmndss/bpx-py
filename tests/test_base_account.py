@@ -38,16 +38,19 @@ def test_get_deposits(account):
         account.get_deposits(limit=100, offset=-1, window=10000)
 
     request_config = account.get_deposits(limit=100, offset=0, window=10000)
-    assert request_config.url == "https://api.backpack.exchange/wapi/v1/capital/deposits"
+    assert (
+        request_config.url == "https://api.backpack.exchange/wapi/v1/capital/deposits"
+    )
     assert request_config.params["limit"] == 100
     assert request_config.params["offset"] == 0
 
 
 def test_get_deposit_address(account):
-    request_config = account.get_deposit_address(
-        blockchain="Bitcoin", window=10000
+    request_config = account.get_deposit_address(blockchain="Bitcoin", window=10000)
+    assert (
+        request_config.url
+        == "https://api.backpack.exchange/wapi/v1/capital/deposit/address"
     )
-    assert request_config.url == "https://api.backpack.exchange/wapi/v1/capital/deposit/address"
     assert request_config.params["blockchain"] == "Bitcoin"
 
 
@@ -66,7 +69,9 @@ def test_withdrawal(account):
         quantity="1.0",
         window=10000,
     )
-    assert request_config.url == "https://api.backpack.exchange/wapi/v1/capital/withdrawals"
+    assert (
+        request_config.url
+        == "https://api.backpack.exchange/wapi/v1/capital/withdrawals"
+    )
     assert request_config.data["address"] == "1BitcoinAddress"
     assert request_config.data["blockchain"] == "Bitcoin"
-

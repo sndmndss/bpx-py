@@ -1,5 +1,7 @@
 from bpx.public import Public
-from datetime import datetime, timedelta
+from bpx.constants.enums import TimeIntervalEnum
+from bpx.constants.enums import BorrowLendMarketHistoryIntervalEnum
+import time
 
 
 def public_example():
@@ -17,12 +19,16 @@ def public_example():
     depth = public.get_depth("SOL_USDC")
     print("Depth for SOL_USDC:", depth)
 
-    now = datetime.now()
-    time_1_minute_ago = now - timedelta(minutes=1)
-    timestamp_1_minute_ago = int(time_1_minute_ago.timestamp())
-    time_11_minutes_ago = now - timedelta(minutes=11)
-    timestamp_11_minutes_ago = int(time_11_minutes_ago.timestamp())
-    klines = public.get_klines("SOL_USDC", "1m", timestamp_11_minutes_ago, timestamp_1_minute_ago)
+    now_ts = int(time.time())
+    ts_1_minute_ago = now_ts - 60
+    ts_11_minutes_ago = now_ts - 660
+
+    klines = public.get_klines(
+        "SOL_USDC",
+        interval=TimeIntervalEnum.ONE_MINUTE,
+        start_time=ts_11_minutes_ago,
+        end_time=ts_1_minute_ago,
+    )
     print("K-lines for SOL_USDC:", klines)
 
     status = public.get_status()
@@ -31,8 +37,8 @@ def public_example():
     ping = public.get_ping()
     print("Ping:", ping)
 
-    time = public.get_time()
-    print("Server Time:", time)
+    time_ = public.get_time()
+    print("Server Time:", time_)
 
     recent_trades = public.get_recent_trades("SOL_USDC")
     print("Recent Trades for SOL_USDC:", recent_trades)
@@ -40,5 +46,29 @@ def public_example():
     history_trades = public.get_history_trades("SOL_USDC", 100, 0)
     print("History Trades for SOL_USDC:", history_trades)
 
+    collateral_info = public.get_collateral()
+    print("Collateral Info:", collateral_info)
 
-public_example()
+    borrow_lend_markets = public.get_borrow_lend_markets()
+    print("Borrow Lend Markets:", borrow_lend_markets)
+
+    borrow_lend_history = public.get_borrow_lend_market_history(
+        BorrowLendMarketHistoryIntervalEnum.ONE_WEEK, symbol="ETH"
+    )
+    print("Borrow Lend Market History (1w) for ETH:", borrow_lend_history)
+
+    market_data = public.get_market()
+    print("Market data from get_market():", market_data)
+
+    all_tickers = public.get_tickers("SOL_USDC")
+    print("Tickers:", all_tickers)
+
+    open_interest = public.get_open_interest("ETH_USDC_PERP")
+    print("Open Interest for ETH_USDC:", open_interest)
+
+    funding_rates = public.get_funding_interval_rates("SOL_USDC_PERP", limit=1000, offset=0)
+    print("Funding Interval Rates for SOL_USDC:", funding_rates)
+
+
+if __name__ == "__main__":
+    public_example()

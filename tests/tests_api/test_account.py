@@ -12,7 +12,7 @@ def account_client():
 
 
 def test_fill_history_query(account_client: Account):
-    fills = account_client.get_fill_history_query("SOL_USDC", limit=50)
+    fills = account_client.get_fill_history("SOL_USDC", limit=50)
     assert len(fills) == 50
 
 
@@ -27,8 +27,8 @@ def test_execute_order(account_client: Account):
         symbol="SOL_USDC",
         order_type="Limit",
         side="Bid",
-        quantity=0.01,
-        price=0.01,
+        quantity="0.01",
+        price="0.01",
         time_in_force="IOC",
     )
     assert isinstance(order, dict)
