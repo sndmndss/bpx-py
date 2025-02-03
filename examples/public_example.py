@@ -55,7 +55,7 @@ def public_example():
     borrow_lend_history = public.get_borrow_lend_market_history(
         BorrowLendMarketHistoryIntervalEnum.ONE_WEEK, symbol="ETH"
     )
-    print("Borrow Lend Market History (1h) for ETH:", borrow_lend_history)
+    print("Borrow Lend Market History (1w) for ETH:", borrow_lend_history)
 
     market_data = public.get_market()
     print("Market data from get_market():", market_data)
@@ -63,10 +63,10 @@ def public_example():
     all_tickers = public.get_tickers("SOL_USDC")
     print("Tickers:", all_tickers)
 
-    open_interest = public.get_open_interest("ETH_USDC")
-    print("Open Interest for SOL:", open_interest)
+    open_interest = public.get_open_interest("ETH_USDC_PERP")
+    print("Open Interest for ETH_USDC:", open_interest)
 
-    funding_rates = public.get_funding_interval_rates("SOL_USDC", limit=1000, offset=0)
+    funding_rates = public.get_funding_interval_rates("SOL_USDC_PERP", limit=1000, offset=0)
     print("Funding Interval Rates for SOL_USDC:", funding_rates)
 
 
