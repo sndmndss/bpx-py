@@ -13,7 +13,7 @@ def account_client():
 
 @pytest.mark.asyncio
 async def test_fill_history_query(account_client: Account):
-    fills = await account_client.get_fill_history_query("SOL_USDC", limit=50)
+    fills = await account_client.get_fill_history("SOL_USDC", limit=50)
     assert len(fills) == 50
 
 
@@ -31,7 +31,7 @@ async def test_execute_order(account_client: Account):
         order_type="Limit",
         side="Bid",
         quantity=0.01,
-        price=0.01,
+        price="0.01",
         time_in_force="IOC",
     )
     assert isinstance(order, dict)
@@ -60,7 +60,7 @@ async def test_get_deposit_address(account_client: Account):
 
 @pytest.mark.asyncio
 async def test_get_order_history_query(account_client: Account):
-    orders = await account_client.get_order_history_query("SOL_USDC", limit=5)
+    orders = await account_client.get_order_history("SOL_USDC", limit=5)
     assert isinstance(orders, list)
     assert len(orders) == 5
 

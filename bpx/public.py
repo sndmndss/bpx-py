@@ -11,7 +11,7 @@ from bpx.constants.enums import (
     BorrowLendMarketHistoryIntervalType,
     BorrowLendMarketHistoryIntervalEnum,
 )
-from typing import Optional, Union
+from typing import Optional, Union, Dict
 
 default_http_client = SyncHttpClient()
 
@@ -34,7 +34,7 @@ class Public(BasePublic):
         """
         return self.http_client.get(self.get_assets_url())
 
-    def get_collateral(self) -> dict[str, IMFFunction, MMFFunction, HaircutFunction]:
+    def get_collateral(self) -> Dict[str, IMFFunction, MMFFunction, HaircutFunction]:
         return self.http_client.get(self.get_collateral_url())
 
     def get_borrow_lend_markets(self):
