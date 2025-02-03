@@ -59,3 +59,21 @@ class AsyncHttpClient(HttpClient):
                     return await response.text()
                 except aiohttp.client_exceptions.ContentTypeError:
                     return await response.text()
+
+    async def patch(self, url, headers=None, data=None):
+        ssl_context = ssl.create_default_context(cafile=certifi.where())
+        async with aiohttp.ClientSession() as session:
+            async with session.patch(
+                url,
+                proxy=self.proxy,
+                headers=headers,
+                data=json.dumps(data),
+                ssl=ssl_context,
+            ) as response:
+
+                try:
+                    return await response.json()
+                except json.JSONDecodeError:
+                    return await response.text()
+                except aiohttp.client_exceptions.ContentTypeError:
+                    return await response.text()

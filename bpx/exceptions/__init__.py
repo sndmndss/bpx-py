@@ -20,9 +20,7 @@ class NegativeValueError(Exception):
 class InvalidTimeIntervalError(Exception):
     def __init__(self, invalid_value):
         self.invalid_value = invalid_value
-        documentation_url = (
-            "https://docs.backpack.exchange/#tag/Markets/operation/get_klines"
-        )
+        documentation_url = "https://docs.backpack.exchange/"
         message = (
             f"{invalid_value} is not a valid time interval.\n"
             f"See the documentation for more details: {documentation_url}"

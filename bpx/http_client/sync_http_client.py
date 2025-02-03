@@ -11,6 +11,7 @@ class SyncHttpClient(HttpClient):
         response = requests.get(
             url=url, proxies=self.proxies, headers=headers, params=params
         )
+
         try:
             return response.json()
         except json.JSONDecodeError:
@@ -18,7 +19,7 @@ class SyncHttpClient(HttpClient):
 
     def post(self, url, headers=None, data=None):
         response = requests.post(
-            url=url, proxies=self.proxies, headers=headers, data=json.dumps(data)
+            url=url, proxies=self.proxies, headers=headers, json=data
         )
         try:
             return response.json()
@@ -27,8 +28,15 @@ class SyncHttpClient(HttpClient):
 
     def delete(self, url, headers=None, data=None):
         response = requests.delete(
-            url, proxies=self.proxies, headers=headers, data=json.dumps(data)
+            url, proxies=self.proxies, headers=headers, json=data
         )
+        try:
+            return response.json()
+        except json.JSONDecodeError:
+            return response.text
+
+    def patch(self, url, headers=None, data=None):
+        response = requests.patch(url, proxies=self.proxies, headers=headers, json=data)
         try:
             return response.json()
         except json.JSONDecodeError:
