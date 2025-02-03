@@ -1,8 +1,12 @@
 from bpx.base.base_public import BasePublic
 from bpx.http_client.async_http_client import AsyncHttpClient
 from typing import Optional, Union
-from bpx.constants.enums import TimeIntervalEnum, TimeIntervalType
-from bpx.models.objects import BorrowLendMarketHistoryInterval
+from bpx.constants.enums import (
+    TimeIntervalEnum,
+    TimeIntervalType,
+    BorrowLendMarketHistoryIntervalEnum,
+    BorrowLendMarketHistoryIntervalType,
+)
 
 default_http_client = AsyncHttpClient()
 
@@ -37,7 +41,11 @@ class Public(BasePublic):
         return await self.http_client.get(self.get_borrow_lend_markets_url())
 
     async def get_borrow_lend_market_history(
-        self, interval: BorrowLendMarketHistoryInterval, symbol=None
+        self,
+        interval: Union[
+            BorrowLendMarketHistoryIntervalEnum, BorrowLendMarketHistoryIntervalType
+        ],
+        symbol: Optional[str] = None,
     ):
         """
         Returns borrow lend market history
