@@ -55,3 +55,14 @@ class EmptyOrderQuantityError(Exception):
             f"quantity or quote_quantity must be specified"
             f"See the documentation for more details: {documentation_url}"
         )
+
+
+class OrderQuantityError(Exception):
+    def __init__(self):
+        documentation_url = (
+            "https://docs.backpack.exchange/#tag/Order/operation/execute_order"
+        )
+        super().__init__(
+            f"Only one of quantity or quote_quantity can be specified"
+            f"See the documentation for more details: {documentation_url}"
+        )

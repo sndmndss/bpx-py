@@ -566,6 +566,8 @@ class BaseAccount:
             params["quoteQuantity"] = quote_quantity
         if quantity:
             params["quantity"] = quantity
+        if quantity and quote_quantity:
+            raise OrderQuantityError()
         if not quantity and not quote_quantity:
             raise EmptyOrderQuantityError()
         if post_only:
