@@ -560,16 +560,22 @@ class BaseAccount:
         if order_type != "Market":
             if price:
                 params["price"] = price
+        if order_type == "Market":
+            if not quantity and not quote_quantity:
+                raise EmptyOrderQuantityError()
+            if quantity and quote_quantity:
+                raise OrderQuantityError()
+            if quote_quantity:
+                params["quoteQuantity"] = quote_quantity
+            if quantity:
+                params["quantity"] = quantity
+        else:
+            if not quantity:
+                raise OrderQuantityNotSpecifiedError()
+            if quantity:
+                params["quantity"] = quantity
         if trigger_price:
             params["triggerPrice"] = trigger_price
-        if quote_quantity:
-            params["quoteQuantity"] = quote_quantity
-        if quantity:
-            params["quantity"] = quantity
-        if quantity and quote_quantity:
-            raise OrderQuantityError()
-        if not quantity and not quote_quantity:
-            raise EmptyOrderQuantityError()
         if post_only:
             params["postOnly"] = True
         if TimeInForceEnum.has_value(time_in_force):

@@ -66,3 +66,14 @@ class OrderQuantityError(Exception):
             f"Only one of quantity or quote_quantity can be specified"
             f"See the documentation for more details: {documentation_url}"
         )
+
+
+class OrderQuantityNotSpecifiedError(Exception):
+    def __init__(self):
+        documentation_url = (
+            "https://docs.backpack.exchange/#tag/Order/operation/execute_order"
+        )
+        super().__init__(
+            f"Order quantity must be specified for limit order"
+            f"See the documentation for more details: {documentation_url}"
+        )
