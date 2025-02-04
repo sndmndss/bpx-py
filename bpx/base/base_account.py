@@ -555,7 +555,6 @@ class BaseAccount:
             "symbol": symbol,
             "side": side,
             "orderType": order_type,
-            "quantity": quantity,
             "selfTradePrevention": self_trade_prevention,
         }
         if order_type != "Market":
@@ -565,6 +564,10 @@ class BaseAccount:
             params["triggerPrice"] = trigger_price
         if quote_quantity:
             params["quoteQuantity"] = quote_quantity
+        if quantity:
+            params["quantity"] = quantity
+        if not quantity and not quote_quantity:
+            raise EmptyOrderQuantityError()
         if post_only:
             params["postOnly"] = True
         if TimeInForceEnum.has_value(time_in_force):
