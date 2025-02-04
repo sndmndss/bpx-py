@@ -12,24 +12,24 @@ def account_examples():
     print("=== get_account ===")
     print(account.get_account())
 
-    print("=== update_account ===")
-    print(
-        account.update_account(
-            leverage_limit="5",
-        )
-    )
+    # print("=== update_account ===")
+    # print(
+    #     account.update_account(
+    #         leverage_limit="5",
+    #     )
+    # )
 
     print("=== get_borrow_lend_positions ===")
     print(account.get_borrow_lend_positions())
 
     print("=== execute_borrow_lend ===")
-    print(
-        account.execute_borrow_lend(
-            symbol="SOL",
-            side="Borrow",
-            quantity="0.1",
-        )
-    )
+    # print(
+    #     account.execute_borrow_lend(
+    #         symbol="SOL",
+    #         side="Borrow",
+    #         quantity="0.1",
+    #     )
+    # )
     print("=== get_balances ===")
     print(account.get_balances())
 
@@ -86,8 +86,8 @@ def account_examples():
     #     auto_lend_redeem=True,
     # ))
 
-    print("=== cancel_order ===")
-    print(account.cancel_order(symbol="SOL_USDC", order_id="987654321"))
+    # print("=== cancel_order ===")
+    # print(account.cancel_order(symbol="SOL_USDC", order_id="987654321"))
 
     print("=== get_open_orders ===")
     print(account.get_open_orders("SOL_USDC"))
