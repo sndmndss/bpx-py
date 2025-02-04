@@ -572,8 +572,7 @@ class BaseAccount:
         else:
             if not quantity:
                 raise OrderQuantityNotSpecifiedError()
-            if quantity:
-                params["quantity"] = quantity
+            params["quantity"] = quantity
         if trigger_price:
             params["triggerPrice"] = trigger_price
         if post_only:
