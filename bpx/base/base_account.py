@@ -557,7 +557,7 @@ class BaseAccount:
             "orderType": order_type,
             "selfTradePrevention": self_trade_prevention,
         }
-        if order_type == "Market":
+        if order_type == OrderTypeEnum.MARKET:
             if not quantity and not quote_quantity:
                 raise EmptyOrderQuantityError()
             if quantity and quote_quantity:
