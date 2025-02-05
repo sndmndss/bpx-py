@@ -557,9 +557,6 @@ class BaseAccount:
             "orderType": order_type,
             "selfTradePrevention": self_trade_prevention,
         }
-        if order_type != "Market":
-            if price:
-                params["price"] = price
         if order_type == "Market":
             if not quantity and not quote_quantity:
                 raise EmptyOrderQuantityError()
@@ -573,6 +570,10 @@ class BaseAccount:
             if not quantity:
                 raise OrderQuantityNotSpecifiedError()
             params["quantity"] = quantity
+
+            if price:
+                params["price"] = price
+
         if trigger_price:
             params["triggerPrice"] = trigger_price
         if post_only:
