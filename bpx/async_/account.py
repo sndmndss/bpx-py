@@ -453,7 +453,7 @@ class Account(BaseAccount):
         self,
         symbol: str,
         side: str,
-        order_type: str,
+        order_type: Union[OrderTypeEnum, OrderTypeType],
         time_in_force: Optional[Union[TimeInForceEnum, TimeInForceType]] = None,
         quantity: Optional[float] = None,
         price: Optional[str] = None,
