@@ -2,6 +2,8 @@ import pytest
 from bpx.account import Account
 import os
 
+from bpx.constants.enums import OrderTypeType
+
 public_key = os.getenv("PUBLIC_KEY")
 secret_key = os.getenv("SECRET_KEY")
 
@@ -25,7 +27,7 @@ def test_get_withdrawal(account_client: Account):
 def test_execute_order(account_client: Account):
     order = account_client.execute_order(
         symbol="SOL_USDC",
-        order_type="Limit",
+        order_type=OrderTypeType.LIMIT,
         side="Bid",
         quantity="0.01",
         price="0.01",
