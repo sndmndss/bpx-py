@@ -526,7 +526,7 @@ class BaseAccount:
         self,
         symbol: str,
         side: str,
-        order_type: OrderTypeType,
+        order_type: Union[OrderTypeEnum, OrderTypeType],
         time_in_force: Optional[Union[TimeInForceEnum, TimeInForceType]] = None,
         quantity: Optional[str] = None,
         price: Optional[str] = None,
