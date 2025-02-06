@@ -60,13 +60,15 @@ def public_example():
     market_data = public.get_market()
     print("Market data from get_market():", market_data)
 
-    all_tickers = public.get_tickers("SOL_USDC")
+    all_tickers = public.get_tickers()
     print("Tickers:", all_tickers)
 
     open_interest = public.get_open_interest("ETH_USDC_PERP")
     print("Open Interest for ETH_USDC:", open_interest)
 
-    funding_rates = public.get_funding_interval_rates("SOL_USDC_PERP", limit=1000, offset=0)
+    funding_rates = public.get_funding_interval_rates(
+        "SOL_USDC_PERP", limit=1000, offset=0
+    )
     print("Funding Interval Rates for SOL_USDC:", funding_rates)
 
 

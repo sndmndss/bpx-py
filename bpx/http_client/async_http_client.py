@@ -1,4 +1,5 @@
 import aiohttp
+from typing import Union, List, Dict, Any, Awaitable
 from bpx.http_client.base.http_client import HttpClient
 import json
 import certifi
@@ -10,7 +11,9 @@ class AsyncHttpClient(HttpClient):
     def __init__(self, proxy: str = ""):
         self.proxy = proxy
 
-    async def get(self, url, headers=None, params=None):
+    async def get(
+        self, url, headers=None, params=None
+    ) -> Union[Dict[str, Any], List[Any], str]:
         ssl_context = ssl.create_default_context(cafile=certifi.where())
         async with aiohttp.ClientSession() as session:
             async with session.get(
@@ -24,7 +27,9 @@ class AsyncHttpClient(HttpClient):
                 except aiohttp.client_exceptions.ContentTypeError:
                     return await response.text()
 
-    async def post(self, url, headers=None, data=None):
+    async def post(
+        self, url, headers=None, data=None
+    ) -> Union[Dict[str, Any], List[Any], str]:
         ssl_context = ssl.create_default_context(cafile=certifi.where())
         async with aiohttp.ClientSession() as session:
             async with session.post(
@@ -42,7 +47,9 @@ class AsyncHttpClient(HttpClient):
                 except aiohttp.client_exceptions.ContentTypeError:
                     return await response.text()
 
-    async def delete(self, url, headers=None, data=None):
+    async def delete(
+        self, url, headers=None, data=None
+    ) -> Union[Dict[str, Any], List[Any], str]:
         ssl_context = ssl.create_default_context(cafile=certifi.where())
         async with aiohttp.ClientSession() as session:
             async with session.delete(

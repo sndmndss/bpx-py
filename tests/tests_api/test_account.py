@@ -55,7 +55,7 @@ def test_get_deposit_address(account_client: Account):
 
 
 def test_get_order_history_query(account_client: Account):
-    orders = account_client.get_order_history_query("SOL_USDC", limit=5)
+    orders = account_client.get_order_history("SOL_USDC", limit=5)
     assert isinstance(orders, list)
     assert len(orders) == 5
 

@@ -1,6 +1,6 @@
 from bpx.base.base_account import BaseAccount
 from bpx.http_client.sync_http_client import SyncHttpClient
-from typing import Optional, Union
+from typing import Optional, Union, Dict, Any, List
 from bpx.constants.enums import *
 
 
@@ -21,7 +21,9 @@ class Account(BaseAccount):
         self.http_client = default_http_client
         self.http_client.proxies = proxy
 
-    def get_account(self, window: Optional[int] = None):
+    def get_account(
+        self, window: Optional[int] = None
+    ) -> Union[Dict[str, Any], List[Any], str]:
         """
         Returns the account information
 
@@ -40,7 +42,7 @@ class Account(BaseAccount):
         auto_repay_borrows: Optional[bool] = None,
         leverage_limit: Optional[str] = None,
         window: Optional[int] = None,
-    ):
+    ) -> Union[Dict[str, Any], List[Any], str]:
         """
         Updates the account information
 
@@ -60,7 +62,9 @@ class Account(BaseAccount):
             data=request_config.data,
         )
 
-    def get_borrow_lend_positions(self, window: Optional[int] = None):
+    def get_borrow_lend_positions(
+        self, window: Optional[int] = None
+    ) -> Union[Dict[str, Any], List[Any], str]:
         """
          Returns the borrow lend positions
 
@@ -77,7 +81,7 @@ class Account(BaseAccount):
         side: Union[BorrowLendSideType, BorrowLendSideEnum],
         symbol: str,
         window: Optional[int] = None,
-    ):
+    ) -> Union[Dict[str, Any], List[Any], str]:
         """
         Posts borrow lend and returns borrow lend status
 
@@ -92,7 +96,9 @@ class Account(BaseAccount):
             data=request_config.data,
         )
 
-    def get_balances(self, window: Optional[int] = None):
+    def get_balances(
+        self, window: Optional[int] = None
+    ) -> Union[Dict[str, Any], List[Any], str]:
         """
         Returns the account balances
 
@@ -105,7 +111,7 @@ class Account(BaseAccount):
 
     def get_collateral(
         self, subaccount_id: Optional[int] = None, window: Optional[int] = None
-    ):
+    ) -> Union[Dict[str, Any], List[Any], str]:
         """
         Returns the account collateral
 
@@ -127,7 +133,7 @@ class Account(BaseAccount):
         from_: Optional[int] = None,
         to: Optional[int] = None,
         window: Optional[int] = None,
-    ):
+    ) -> Union[Dict[str, Any], List[Any], str]:
         """
         Returns the account deposits
 
@@ -142,7 +148,9 @@ class Account(BaseAccount):
             params=request_config.params,
         )
 
-    def get_deposit_address(self, blockchain: str, window: Optional[int] = None):
+    def get_deposit_address(
+        self, blockchain: str, window: Optional[int] = None
+    ) -> Union[Dict[str, Any], List[Any], str]:
         """
          Returns the deposit address for a specified blockchain
 
@@ -164,7 +172,7 @@ class Account(BaseAccount):
         from_: Optional[int] = None,
         to: Optional[int] = None,
         window: Optional[int] = None,
-    ):
+    ) -> Union[Dict[str, Any], List[Any], str]:
         """
         Returns the account withdrawals
 
@@ -190,7 +198,7 @@ class Account(BaseAccount):
         auto_lend_redeem: Optional[bool] = None,
         client_id: Optional[int] = None,
         window: Optional[int] = None,
-    ):
+    ) -> Union[Dict[str, Any], List[Any], str]:
         """
         Posts withdrawal and returns withdrawal status
 
@@ -213,7 +221,9 @@ class Account(BaseAccount):
             data=request_config.data,
         )
 
-    def get_open_positions(self, window: Optional[int] = None):
+    def get_open_positions(
+        self, window: Optional[int] = None
+    ) -> Union[Dict[str, Any], List[Any], str]:
         """
         Returns the account open positions
 
@@ -235,7 +245,7 @@ class Account(BaseAccount):
         limit: int = 100,
         offset: int = 0,
         window: Optional[int] = None,
-    ):
+    ) -> Union[Dict[str, Any], List[Any], str]:
         """
         Returns the account borrow history
 
@@ -267,7 +277,7 @@ class Account(BaseAccount):
             Union[InterestPaymentSourceType, InterestPaymentSourceEnum]
         ] = None,
         window: Optional[int] = None,
-    ):
+    ) -> Union[Dict[str, Any], List[Any], str]:
         """
         Returns the account interest history
 
@@ -296,7 +306,7 @@ class Account(BaseAccount):
         offset: int = 0,
         market_type: Optional[Union[MarketTypeEnum, MarketTypeType]] = None,
         window: Optional[int] = None,
-    ):
+    ) -> Union[Dict[str, Any], List[Any], str]:
         """
         Returns orders history of a specified symbol
 
@@ -326,7 +336,7 @@ class Account(BaseAccount):
         fill_type: Optional[Union[FillTypeEnum, FillTypeType]] = None,
         market_type: Optional[Union[MarketTypeType, MarketTypeEnum]] = None,
         window: Optional[int] = None,
-    ):
+    ) -> Union[Dict[str, Any], List[Any], str]:
         """
         Returns fills history of a specified symbol
 
@@ -355,7 +365,7 @@ class Account(BaseAccount):
         limit: Optional[int] = 100,
         offset: Optional[int] = 0,
         window: Optional[int] = None,
-    ):
+    ) -> Union[Dict[str, Any], List[Any], str]:
         """
         Returns the account funding payments
 
@@ -381,7 +391,7 @@ class Account(BaseAccount):
         limit: int = 100,
         offset: int = 0,
         window: Optional[int] = None,
-    ):
+    ) -> Union[Dict[str, Any], List[Any], str]:
         """
         Returns the account profit and loss history
 
@@ -408,7 +418,7 @@ class Account(BaseAccount):
             Union[SettlementSourceFilterEnum, SettlementSourceFilterType]
         ] = None,
         window: Optional[int] = None,
-    ):
+    ) -> Union[Dict[str, Any], List[Any], str]:
         """
         Returns the account settlements history
 
@@ -429,7 +439,7 @@ class Account(BaseAccount):
         order_id: Optional[str] = None,
         client_id: Optional[int] = None,
         window: Optional[int] = None,
-    ):
+    ) -> Union[Dict[str, Any], List[Any], str]:
         """
         Returns open orders of a specified symbol
 
@@ -465,7 +475,7 @@ class Account(BaseAccount):
         auto_lend: Optional[bool] = None,
         auto_lend_redeem: Optional[bool] = None,
         window: Optional[int] = None,
-    ):
+    ) -> Union[Dict[str, Any], List[Any], str]:
         """
         Posts an order and returns order status
 
@@ -502,7 +512,7 @@ class Account(BaseAccount):
         order_id: Optional[str] = None,
         client_id: Optional[int] = None,
         window: Optional[int] = None,
-    ):
+    ) -> Union[Dict[str, Any], List[Any], str]:
         """
         Cancels an existing order
 
@@ -517,7 +527,9 @@ class Account(BaseAccount):
             data=request_config.data,
         )
 
-    def get_open_orders(self, symbol: str, window: Optional[int] = None):
+    def get_open_orders(
+        self, symbol: str, window: Optional[int] = None
+    ) -> Union[Dict[str, Any], List[Any], str]:
         """
         Returns open orders of a specified symbol
 
@@ -530,7 +542,9 @@ class Account(BaseAccount):
             params=request_config.params,
         )
 
-    def cancel_all_orders(self, symbol: str, window: Optional[int] = None):
+    def cancel_all_orders(
+        self, symbol: str, window: Optional[int] = None
+    ) -> Union[Dict[str, Any], List[Any], str]:
         """
         Cancels all existing orders of a specified symbol
 
@@ -550,7 +564,7 @@ class Account(BaseAccount):
         ask_price: str,
         client_id: Optional[int] = None,
         window: Optional[int] = None,
-    ):
+    ) -> Union[Dict[str, Any], List[Any], str]:
         """
         Submits a quote for a specified RFQ
 
