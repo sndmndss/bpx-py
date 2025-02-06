@@ -60,7 +60,7 @@ def public_example():
     market_data = public.get_market()
     print("Market data from get_market():", market_data)
 
-    all_tickers = public.get_tickers("SOL_USDC")
+    all_tickers = public.get_tickers()
     print("Tickers:", all_tickers)
 
     open_interest = public.get_open_interest("ETH_USDC_PERP")
