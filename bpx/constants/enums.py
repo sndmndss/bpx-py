@@ -237,3 +237,18 @@ class BorrowLendMarketHistoryIntervalEnum(str, Enum):
 
 
 BorrowLendMarketHistoryIntervalType = Literal["1d", "1w", "1month", "1year"]
+
+
+class OrderTypeEnum(str, Enum):
+    MARKET = "Market"
+    LIMIT = "Limit"
+
+    @classmethod
+    def has_value(cls, value):
+        return value in cls._value2member_map_
+
+    def __str__(self):
+        return self.value
+
+
+OrderTypeType = Literal["Market", "Limit"]

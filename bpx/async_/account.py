@@ -453,15 +453,15 @@ class Account(BaseAccount):
         self,
         symbol: str,
         side: str,
-        order_type: str,
+        order_type: Union[OrderTypeEnum, OrderTypeType],
         time_in_force: Optional[Union[TimeInForceEnum, TimeInForceType]] = None,
-        quantity: Optional[float] = None,
+        quantity: Optional[str] = None,
         price: Optional[str] = None,
         trigger_price: Optional[str] = None,
         self_trade_prevention: Optional[
             Union[SelfTradePreventionEnum, SelfTradePreventionType]
         ] = "RejectBoth",
-        quote_quantity: Optional[float] = None,
+        quote_quantity: Optional[str] = None,
         client_id: Optional[int] = None,
         post_only: Optional[bool] = None,
         reduce_only: Optional[bool] = None,

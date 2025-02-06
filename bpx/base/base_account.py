@@ -526,7 +526,7 @@ class BaseAccount:
         self,
         symbol: str,
         side: str,
-        order_type: str,
+        order_type: Union[OrderTypeEnum, OrderTypeType],
         time_in_force: Optional[Union[TimeInForceEnum, TimeInForceType]] = None,
         quantity: Optional[str] = None,
         price: Optional[str] = None,
@@ -555,16 +555,27 @@ class BaseAccount:
             "symbol": symbol,
             "side": side,
             "orderType": order_type,
-            "quantity": quantity,
             "selfTradePrevention": self_trade_prevention,
         }
-        if order_type != "Market":
+        if order_type == OrderTypeEnum.MARKET:
+            if not quantity and not quote_quantity:
+                raise EmptyOrderQuantityError()
+            if quantity and quote_quantity:
+                raise OrderQuantityError()
+            if quote_quantity:
+                params["quoteQuantity"] = quote_quantity
+            if quantity:
+                params["quantity"] = quantity
+        else:
+            if not quantity:
+                raise OrderQuantityNotSpecifiedError()
+            params["quantity"] = quantity
+
             if price:
                 params["price"] = price
+
         if trigger_price:
             params["triggerPrice"] = trigger_price
-        if quote_quantity:
-            params["quoteQuantity"] = quote_quantity
         if post_only:
             params["postOnly"] = True
         if TimeInForceEnum.has_value(time_in_force):
