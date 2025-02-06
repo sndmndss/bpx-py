@@ -21,7 +21,9 @@ class Account(BaseAccount):
         self.http_client = http_client
         self.http_client.proxy = proxy
 
-    async def get_account(self, window: Optional[int] = None) -> Union[Dict[str, Any], List[Any], str]:
+    async def get_account(
+        self, window: Optional[int] = None
+    ) -> Union[Dict[str, Any], List[Any], str]:
         """
         Returns the account information
 
@@ -94,7 +96,9 @@ class Account(BaseAccount):
             data=request_config.data,
         )
 
-    async def get_balances(self, window: Optional[int] = None) -> Union[Dict[str, Any], List[Any], str]:
+    async def get_balances(
+        self, window: Optional[int] = None
+    ) -> Union[Dict[str, Any], List[Any], str]:
         """
         Returns the account balances
 
@@ -144,7 +148,9 @@ class Account(BaseAccount):
             params=request_config.params,
         )
 
-    async def get_deposit_address(self, blockchain: str, window: Optional[int] = None) -> Union[Dict[str, Any], List[Any], str]:
+    async def get_deposit_address(
+        self, blockchain: str, window: Optional[int] = None
+    ) -> Union[Dict[str, Any], List[Any], str]:
         """
         Returns the deposit address for a specified blockchain
 
@@ -521,7 +527,9 @@ class Account(BaseAccount):
             data=request_config.data,
         )
 
-    async def get_open_orders(self, symbol: str, window: Optional[int] = None) -> Union[Dict[str, Any], List[Any], str]:
+    async def get_open_orders(
+        self, symbol: str, window: Optional[int] = None
+    ) -> Union[Dict[str, Any], List[Any], str]:
         """
         Returns open orders of a specified symbol
 
@@ -534,7 +542,9 @@ class Account(BaseAccount):
             params=request_config.params,
         )
 
-    async def cancel_all_orders(self, symbol: str, window: Optional[int] = None) -> Union[Dict[str, Any], List[Any], str]:
+    async def cancel_all_orders(
+        self, symbol: str, window: Optional[int] = None
+    ) -> Union[Dict[str, Any], List[Any], str]:
         """
         Cancels all existing orders of a specified symbol
 

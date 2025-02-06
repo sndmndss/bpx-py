@@ -138,7 +138,9 @@ class Public(BasePublic):
 
         https://docs.backpack.exchange/#tag/Markets/operation/get_funding_interval_rates
         """
-        return self.http_client.get(self.get_funding_interval_rates_url(symbol, limit, offset))
+        return self.http_client.get(
+            self.get_funding_interval_rates_url(symbol, limit, offset)
+        )
 
     def get_status(self):
         """

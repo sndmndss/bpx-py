@@ -105,7 +105,9 @@ class Public(BasePublic):
             self.get_klines_url(symbol, interval, start_time, end_time)
         )
 
-    async def get_open_interest(self, symbol: str) -> Union[Dict[str, Any], List[Any], str]:
+    async def get_open_interest(
+        self, symbol: str
+    ) -> Union[Dict[str, Any], List[Any], str]:
         """
         Returns open interest for a specified market
 
@@ -121,7 +123,9 @@ class Public(BasePublic):
 
         https://docs.backpack.exchange/#tag/Markets/operation/get_funding_interval_rates
         """
-        return await self.http_client.get(self.get_funding_interval_rates_url(symbol, limit, offset))
+        return await self.http_client.get(
+            self.get_funding_interval_rates_url(symbol, limit, offset)
+        )
 
     async def get_status(self) -> str:
         """
@@ -147,7 +151,9 @@ class Public(BasePublic):
         """
         return await self.http_client.get(self.get_time_url())
 
-    async def get_recent_trades(self, symbol: str, limit=100) -> Union[Dict[str, Any], List[Any], str]:
+    async def get_recent_trades(
+        self, symbol: str, limit=100
+    ) -> Union[Dict[str, Any], List[Any], str]:
         """
         Returns recent trades for a specified market
 
@@ -155,7 +161,9 @@ class Public(BasePublic):
         """
         return await self.http_client.get(self.get_recent_trades_url(symbol, limit))
 
-    async def get_history_trades(self, symbol: str, limit=100, offset=0) -> Union[Dict[str, Any], List[Any], str]:
+    async def get_history_trades(
+        self, symbol: str, limit=100, offset=0
+    ) -> Union[Dict[str, Any], List[Any], str]:
         """
         Returns historical trades for a specified market
 
