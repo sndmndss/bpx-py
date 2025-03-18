@@ -180,6 +180,6 @@ class Public(BasePublic):
         """
         Retrieves mark price, index price and the funding rate for the current interval for all symbols, or the symbol specified.
 
-        https://docs.backpack.exchange/#tag/Trades/operation/get_historical_trades
+        https://docs.backpack.exchange/#tag/Markets/operation/get_mark_prices
         """
         return await self.http_client.get(self.get_all_mark_prices_url(symbol))
