@@ -31,7 +31,7 @@ class Public(BasePublic):
         return await self.http_client.get(self.get_assets_url())
 
     async def get_collateral(self) -> Union[Dict[str, Any], List[Any], str]:
-        return await self.http_client.get(self.get_collateral())
+        return await self.http_client.get(self.get_collateral_url())
 
     async def get_borrow_lend_markets(self) -> Union[Dict[str, Any], List[Any], str]:
         """
@@ -172,3 +172,14 @@ class Public(BasePublic):
         return await self.http_client.get(
             self.get_historical_trades_url(symbol, limit, offset)
         )
+
+    async def get_all_mark_prices(
+        self,
+        symbol: Optional[str] = None,
+    ) -> Union[Dict[str, Any], List[Any], str]:
+        """
+        Retrieves mark price, index price and the funding rate for the current interval for all symbols, or the symbol specified.
+
+        https://docs.backpack.exchange/#tag/Markets/operation/get_mark_prices
+        """
+        return await self.http_client.get(self.get_all_mark_prices_url(symbol))
