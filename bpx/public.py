@@ -11,7 +11,7 @@ from bpx.constants.enums import (
     BorrowLendMarketHistoryIntervalType,
     BorrowLendMarketHistoryIntervalEnum,
 )
-from typing import Optional, Union
+from typing import Optional, Union, Dict, Any, List
 
 default_http_client = SyncHttpClient()
 
@@ -183,3 +183,14 @@ class Public(BasePublic):
         return self.http_client.get(
             self.get_historical_trades_url(symbol, limit, offset)
         )
+
+    async def get_all_mark_prices(
+        self,
+        symbol: Optional[str] = None,
+    ) -> Union[Dict[str, Any], List[Any], str]:
+        """
+        Retrieves mark price, index price and the funding rate for the current interval for all symbols, or the symbol specified.
+
+        https://docs.backpack.exchange/#tag/Trades/operation/get_historical_trades
+        """
+        return self.http_client.get(self.get_all_mark_prices_url(symbol))
