@@ -542,6 +542,14 @@ class BaseAccount:
         auto_borrow_repay: Optional[bool] = None,
         auto_lend: Optional[bool] = None,
         auto_lend_redeem: Optional[bool] = None,
+        stop_loss_limit_price: Optional[str] = None,
+        stop_loss_trigger_by: Optional[str] = None,
+        stop_loss_trigger_price: Optional[str] = None,
+        take_profit_limit_price: Optional[str] = None,
+        take_profit_trigger_by: Optional[str] = None,
+        take_profit_trigger_price: Optional[str] = None,
+        triggered_by: Optional[str] = None,
+        trigger_quantity: Optional[str] = None,
         window: Optional[int] = None,
     ) -> RequestConfiguration:
         """
@@ -594,6 +602,22 @@ class BaseAccount:
             params["autoLend"] = auto_lend
         if auto_lend_redeem:
             params["autoLendRedeem"] = auto_lend_redeem
+        if trigger_quantity:
+            params["triggerQuantity"] = trigger_quantity
+        if stop_loss_limit_price:
+            params["stopLossLimitPrice"] = stop_loss_limit_price
+        if stop_loss_trigger_by:
+            params["stopLossTriggerBy"] = stop_loss_trigger_by
+        if stop_loss_trigger_price:
+            params["stopLossTriggerPrice"] = stop_loss_trigger_price
+        if triggered_by:
+            params["triggeredBy"] = triggered_by
+        if take_profit_limit_price:
+            params["takeProfitLimitPrice"] = take_profit_limit_price
+        if take_profit_trigger_by:
+            params["takeProfitTriggerBy"] = take_profit_trigger_by
+        if take_profit_trigger_price:
+            params["takeProfitTriggerPrice"] = take_profit_trigger_price
         headers = self._headers(params, "orderExecute", window=window)
         url = self.BPX_API_URL + "api/v1/order"
         request_config = RequestConfiguration(url=url, headers=headers, data=params)
@@ -622,14 +646,21 @@ class BaseAccount:
         return request_config
 
     def get_open_orders(
-        self, symbol: str, window: Optional[int] = None
+        self,
+        market_type: Optional[str] = None,
+        symbol: Optional[str] = None,
+        window: Optional[int] = None,
     ) -> RequestConfiguration:
         """
         Returns the url, headers and request parameters for getting account open orders
 
         https://docs.backpack.exchange/#tag/Order/operation/get_open_orders
         """
-        params = {"symbol": symbol}
+        params = {}
+        if market_type:
+            params["marketType"] = market_type
+        if symbol:
+            params["symbol"] = symbol
         headers = self._headers(params, "orderQueryAll", window=window)
         url = self.BPX_API_URL + "api/v1/orders"
         request_config = RequestConfiguration(url=url, headers=headers, params=params)

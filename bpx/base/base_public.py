@@ -126,13 +126,15 @@ class BasePublic:
             return self._endpoint(f"api/v1/markPrices?symbol={symbol}")
         return self._endpoint("api/v1/markPrices")
 
-    def get_open_interest_url(self, symbol: str) -> str:
+    def get_open_interest_url(self, symbol: Optional[str] = None) -> str:
         """
         Returns URL for getting open interest for a specified market
 
         https://docs.backpack.exchange/#tag/Markets/operation/get_open_interest
         """
-        return self._endpoint(f"api/v1/openInterest?symbol={symbol}")
+        if symbol:
+            return self._endpoint(f"api/v1/openInterest?symbol={symbol}")
+        return self._endpoint(f"api/v1/openInterest")
 
     def get_funding_interval_rates_url(
         self, symbol: str, limit: int = 1000, offset: int = 0

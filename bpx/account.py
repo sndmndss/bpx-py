@@ -474,6 +474,14 @@ class Account(BaseAccount):
         auto_borrow_repay: Optional[bool] = None,
         auto_lend: Optional[bool] = None,
         auto_lend_redeem: Optional[bool] = None,
+        stop_loss_limit_price: Optional[str] = None,
+        stop_loss_trigger_by: Optional[str] = None,
+        stop_loss_trigger_price: Optional[str] = None,
+        take_profit_limit_price: Optional[str] = None,
+        take_profit_trigger_by: Optional[str] = None,
+        take_profit_trigger_price: Optional[str] = None,
+        triggered_by: Optional[str] = None,
+        trigger_quantity: Optional[str] = None,
         window: Optional[int] = None,
     ) -> Union[Dict[str, Any], List[Any], str]:
         """
@@ -498,6 +506,14 @@ class Account(BaseAccount):
             auto_borrow_repay=auto_borrow_repay,
             auto_lend=auto_lend,
             auto_lend_redeem=auto_lend_redeem,
+            stop_loss_limit_price=stop_loss_limit_price,
+            stop_loss_trigger_by=stop_loss_trigger_by,
+            stop_loss_trigger_price=stop_loss_trigger_price,
+            take_profit_limit_price=take_profit_limit_price,
+            take_profit_trigger_by=take_profit_trigger_by,
+            take_profit_trigger_price=take_profit_trigger_price,
+            triggered_by=triggered_by,
+            trigger_quantity=trigger_quantity,
             window=window,
         )
         return self.http_client.post(
@@ -528,14 +544,19 @@ class Account(BaseAccount):
         )
 
     def get_open_orders(
-        self, symbol: str, window: Optional[int] = None
+        self,
+        market_type: Optional[str] = None,
+        symbol: Optional[str] = None,
+        window: Optional[int] = None,
     ) -> Union[Dict[str, Any], List[Any], str]:
         """
         Returns open orders of a specified symbol
 
         https://docs.backpack.exchange/#tag/Order/operation/get_open_orders
         """
-        request_config = super().get_open_orders(symbol=symbol, window=window)
+        request_config = super().get_open_orders(
+            market_type=market_type, symbol=symbol, window=window
+        )
         return self.http_client.get(
             url=request_config.url,
             headers=request_config.headers,

@@ -122,7 +122,7 @@ class Public(BasePublic):
             )
         )
 
-    def get_open_interest(self, symbol: str):
+    def get_open_interest(self, symbol: Optional[str] = None):
         """
         Returns open interest for a specified market
 
