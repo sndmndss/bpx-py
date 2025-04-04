@@ -65,6 +65,70 @@ class BaseAccount:
         request_config = RequestConfiguration(url=url, headers=headers, data=params)
         return request_config
 
+    def get_max_borrow_quantity(
+        self,
+        symbol: str,
+        window: Optional[int] = None,
+    ) -> RequestConfiguration:
+        """
+        Returns the url, headers, and request parameters for retrieving the maximum borrow quantity
+
+        https://docs.backpack.exchange/#tag/Account/operation/get_max_borrow_quantity
+         """
+        params = {"symbol": symbol}
+        headers = self._headers(params, "maxBorrowQuantity", window=window)
+        url = self.BPX_API_URL + "api/v1/account/limits/borrow"
+        request_config = RequestConfiguration(url=url, headers=headers, params=params)
+        return request_config
+
+
+    def get_max_order_quantity(
+        self,
+        symbol: str,
+        side: str,
+        price: Optional[str] = None,
+        reduce_only: Optional[bool] = None,
+        auto_borrow: Optional[bool] = None,
+        auto_borrow_repay: Optional[bool] = None,
+        auto_lend_redeem: Optional[bool] = None,
+        window: Optional[int] = None
+    ) -> RequestConfiguration:
+        params = {
+            "symbol": symbol,
+            "side": side
+        }
+        if price is not None:
+            params["price"] = price
+        if reduce_only is not None:
+            params["reduceOnly"] = reduce_only
+        if auto_borrow is not None:
+            params["autoBorrow"] = auto_borrow
+        if auto_borrow_repay is not None:
+            params["autoBorrowRepay"] = auto_borrow_repay
+        if auto_lend_redeem is not None:
+            params["autoLendRedeem"] = auto_lend_redeem
+
+        headers = self._headers(params, "maxOrderQuantity", window=window)
+        url = self.BPX_API_URL + "api/v1/account/limits/order"
+        return RequestConfiguration(url=url, headers=headers, params=params)
+
+
+    def get_max_withdrawal_quantity(
+        self,
+        symbol: str,
+        auto_borrow: Optional[bool] = None,
+        auto_lend_redeem: Optional[bool] = None,
+        window: Optional[int] = None,
+    ) -> RequestConfiguration:
+        params = {"symbol": symbol}
+        if auto_borrow is not None:
+            params["autoBorrow"] = auto_borrow
+        if auto_lend_redeem is not None:
+            params["autoLendRedeem"] = auto_lend_redeem
+        headers = self._headers(params, "maxWithdrawalQuantity", window=window)
+        url = self.BPX_API_URL + "api/v1/account/limits/withdrawal"
+        return RequestConfiguration(url=url, headers=headers, params=params)
+
     def get_borrow_lend_positions(
         self, window: Optional[int] = None
     ) -> RequestConfiguration:

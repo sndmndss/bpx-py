@@ -62,6 +62,64 @@ class Account(BaseAccount):
             data=request_config.data,
         )
 
+    async def get_max_borrow_quantity(
+        self,
+        symbol: str,
+        window: Optional[int] = None,
+    ) -> Union[Dict[str, Any], List[Any], str]:
+        request_config = super().get_max_borrow_quantity(symbol=symbol, window=window)
+        return await self.http_client.get(
+            url=request_config.url,
+            headers=request_config.headers,
+            params=request_config.params,
+        )
+
+    async def get_max_order_quantity(
+        self,
+        symbol: str,
+        side: str,
+        price: Optional[str] = None,
+        reduce_only: Optional[bool] = None,
+        auto_borrow: Optional[bool] = None,
+        auto_borrow_repay: Optional[bool] = None,
+        auto_lend_redeem: Optional[bool] = None,
+        window: Optional[int] = None,
+    ) -> Union[Dict[str, Any], List[Any], str]:
+        request_config = super().get_max_order_quantity(
+            symbol=symbol,
+            side=side,
+            price=price,
+            reduce_only=reduce_only,
+            auto_borrow=auto_borrow,
+            auto_borrow_repay=auto_borrow_repay,
+            auto_lend_redeem=auto_lend_redeem,
+            window=window,
+        )
+        return await self.http_client.get(
+            url=request_config.url,
+            headers=request_config.headers,
+            params=request_config.params,
+        )
+
+    async def get_max_withdrawal_quantity(
+        self,
+        symbol: str,
+        auto_borrow: Optional[bool] = None,
+        auto_lend_redeem: Optional[bool] = None,
+        window: Optional[int] = None,
+    ) -> Union[Dict[str, Any], List[Any], str]:
+        request_config = super().get_max_withdrawal_quantity(
+            symbol=symbol,
+            auto_borrow=auto_borrow,
+            auto_lend_redeem=auto_lend_redeem,
+            window=window,
+        )
+        return await self.http_client.get(
+            url=request_config.url,
+            headers=request_config.headers,
+            params=request_config.params,
+        )
+
     async def get_borrow_lend_positions(
         self, window: Optional[int] = None
     ) -> Union[Dict[str, Any], List[Any], str]:
