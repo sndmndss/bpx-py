@@ -38,7 +38,6 @@ class Account(BaseAccount):
         self,
         auto_borrow_settlements: Optional[bool] = None,
         auto_lend: Optional[bool] = None,
-        auto_realize_pnl: Optional[bool] = None,
         auto_repay_borrows: Optional[bool] = None,
         leverage_limit: Optional[str] = None,
         window: Optional[int] = None,
@@ -51,7 +50,6 @@ class Account(BaseAccount):
         request_config = super().update_account(
             auto_borrow_settlements=auto_borrow_settlements,
             auto_lend=auto_lend,
-            auto_realize_pnl=auto_realize_pnl,
             auto_repay_borrows=auto_repay_borrows,
             leverage_limit=leverage_limit,
             window=window,

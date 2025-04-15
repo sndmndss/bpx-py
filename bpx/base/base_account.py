@@ -39,7 +39,6 @@ class BaseAccount:
         self,
         auto_borrow_settlements: Optional[bool] = None,
         auto_lend: Optional[bool] = None,
-        auto_realize_pnl: Optional[bool] = None,
         auto_repay_borrows: Optional[bool] = None,
         leverage_limit: Optional[str] = None,
         window: Optional[int] = None,
@@ -54,8 +53,6 @@ class BaseAccount:
             params["autoBorrowSettlements"] = auto_borrow_settlements
         if auto_lend:
             params["autoLend"] = auto_lend
-        if auto_realize_pnl:
-            params["autoRealizePnl"] = auto_realize_pnl
         if auto_repay_borrows:
             params["autoRepayBorrows"] = auto_repay_borrows
         if leverage_limit:
