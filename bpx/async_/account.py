@@ -511,26 +511,34 @@ class Account(BaseAccount):
         )
 
     async def execute_order(
-        self,
-        symbol: str,
-        side: str,
-        order_type: Union[OrderTypeEnum, OrderTypeType],
-        time_in_force: Optional[Union[TimeInForceEnum, TimeInForceType]] = None,
-        quantity: Optional[str] = None,
-        price: Optional[str] = None,
-        trigger_price: Optional[str] = None,
-        self_trade_prevention: Optional[
-            Union[SelfTradePreventionEnum, SelfTradePreventionType]
-        ] = "RejectBoth",
-        quote_quantity: Optional[str] = None,
-        client_id: Optional[int] = None,
-        post_only: Optional[bool] = None,
-        reduce_only: Optional[bool] = None,
-        auto_borrow: Optional[bool] = None,
-        auto_borrow_repay: Optional[bool] = None,
-        auto_lend: Optional[bool] = None,
-        auto_lend_redeem: Optional[bool] = None,
-        window: Optional[int] = None,
+            self,
+            symbol: str,
+            side: str,
+            order_type: Union[OrderTypeEnum, OrderTypeType],
+            time_in_force: Optional[Union[TimeInForceEnum, TimeInForceType]] = None,
+            quantity: Optional[str] = None,
+            price: Optional[str] = None,
+            trigger_price: Optional[str] = None,
+            self_trade_prevention: Optional[
+                Union[SelfTradePreventionEnum, SelfTradePreventionType]
+            ] = "RejectBoth",
+            quote_quantity: Optional[str] = None,
+            client_id: Optional[int] = None,
+            post_only: Optional[bool] = None,
+            reduce_only: Optional[bool] = None,
+            auto_borrow: Optional[bool] = None,
+            auto_borrow_repay: Optional[bool] = None,
+            auto_lend: Optional[bool] = None,
+            auto_lend_redeem: Optional[bool] = None,
+            stop_loss_limit_price: Optional[str] = None,
+            stop_loss_trigger_by: Optional[str] = None,
+            stop_loss_trigger_price: Optional[str] = None,
+            take_profit_limit_price: Optional[str] = None,
+            take_profit_trigger_by: Optional[str] = None,
+            take_profit_trigger_price: Optional[str] = None,
+            triggered_by: Optional[str] = None,
+            trigger_quantity: Optional[str] = None,
+            window: Optional[int] = None,
     ) -> Union[Dict[str, Any], List[Any], str]:
         """
         Posts an order and returns order status
@@ -554,6 +562,14 @@ class Account(BaseAccount):
             auto_borrow_repay=auto_borrow_repay,
             auto_lend=auto_lend,
             auto_lend_redeem=auto_lend_redeem,
+            stop_loss_limit_price=stop_loss_limit_price,
+            stop_loss_trigger_by=stop_loss_trigger_by,
+            stop_loss_trigger_price=stop_loss_trigger_price,
+            take_profit_limit_price=take_profit_limit_price,
+            take_profit_trigger_by=take_profit_trigger_by,
+            take_profit_trigger_price=take_profit_trigger_price,
+            triggered_by=triggered_by,
+            trigger_quantity=trigger_quantity,
             window=window,
         )
         return await self.http_client.post(
@@ -584,7 +600,7 @@ class Account(BaseAccount):
         )
 
     async def get_open_orders(
-        self, symbol: str, window: Optional[int] = None
+        self, market_type: Optional[str] = None, symbol: Optional[str] = None, window: Optional[int] = None
     ) -> Union[Dict[str, Any], List[Any], str]:
         """
         Returns open orders of a specified symbol
