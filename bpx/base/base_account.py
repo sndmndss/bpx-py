@@ -594,7 +594,7 @@ class BaseAccount:
         trigger_price: Optional[str] = None,
         self_trade_prevention: Optional[
             Union[SelfTradePreventionEnum, SelfTradePreventionType]
-        ] = "RejectBoth",
+        ] = None,
         quote_quantity: Optional[str] = None,
         client_id: Optional[int] = None,
         post_only: Optional[bool] = None,
@@ -618,14 +618,16 @@ class BaseAccount:
 
         https://docs.backpack.exchange/#tag/Order/operation/execute_order
         """
-        if not SelfTradePreventionEnum.has_value(self_trade_prevention):
-            raise InvalidSelfTradePreventionError(self_trade_prevention)
+
         params = {
             "symbol": symbol,
             "side": side,
             "orderType": order_type,
-            "selfTradePrevention": self_trade_prevention,
         }
+        if SelfTradePreventionEnum.has_value(self_trade_prevention):
+            params["selfTradePrevention"] = self_trade_prevention
+        elif self_trade_prevention:
+            raise InvalidSelfTradePreventionError(self_trade_prevention)
         if order_type == OrderTypeEnum.MARKET:
             if not quantity and not quote_quantity:
                 raise EmptyOrderQuantityError()
@@ -649,7 +651,7 @@ class BaseAccount:
             params["postOnly"] = True
         if TimeInForceEnum.has_value(time_in_force):
             params["timeInForce"] = time_in_force
-        else:
+        elif time_in_force:
             raise InvalidTimeInForceValue(time_in_force)
         if client_id:
             params["clientId"] = client_id
