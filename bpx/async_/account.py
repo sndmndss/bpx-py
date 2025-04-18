@@ -521,7 +521,7 @@ class Account(BaseAccount):
             trigger_price: Optional[str] = None,
             self_trade_prevention: Optional[
                 Union[SelfTradePreventionEnum, SelfTradePreventionType]
-            ] = "RejectBoth",
+            ] = None,
             quote_quantity: Optional[str] = None,
             client_id: Optional[int] = None,
             post_only: Optional[bool] = None,
